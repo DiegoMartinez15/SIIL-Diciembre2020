@@ -19,7 +19,8 @@ class CreateEmpresasTable extends Migration
             $table->string('direccion',100);
             $table->string('telefono',8);
             $table->string('encargado',50);
-
+            $table->string('correo',200);
+            $table->string('telencargado',8);
             $table->integer('idarea')->unsigned();
             $table->foreign('idarea')->references('id')->on('areas');
 

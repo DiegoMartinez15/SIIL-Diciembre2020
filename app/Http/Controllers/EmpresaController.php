@@ -14,7 +14,8 @@ class EmpresaController extends Controller
         $empresas =Empresa::join('usuarios','empresas.idusuario','=','usuarios.id')
         ->join('areas', 'empresas.idarea', '=', 'areas.id')
         ->select('empresas.id','empresas.nombre','empresas.direccion',
-        'empresas.telefono','empresas.encargado','areas.nombre as idarea','usuarios.nombres as idusuario'
+        'empresas.telefono','empresas.encargado','empresas.correo','empresas.telencargado','areas.nombre as idarea',
+        'usuarios.nombres as idusuario'
         
         )->get();
 
@@ -35,34 +36,38 @@ class EmpresaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request , Empresa $empresa)
+    public function store(Request $request , Empresa $empresas)
     {
-        $empresa = new Empresa();
-        $empresa->nombre = $request->nombre;
-        $empresa->direccion = $request->direccion;
-        $empresa->telefono = $request->telefono;
-        $empresa->encargado = $request->encargado;
-        $empresa->idarea = $request->idarea;
-        $empresa->idusuario = $request->idusuario;
+        $empresas = new Empresa();
+        $empresas->nombre = $request->nombre;
+        $empresas->direccion = $request->direccion;
+        $empresas->telefono = $request->telefono;
+        $empresas->encargado = $request->encargado;
+        $empresas->correo = $request->correo;
+        $empresas->telencargado = $request->telencargado;
+        $empresas->idarea = $request->idarea;
+        $empresas->idusuario = $request->idusuario;
         
-        $empresa->save();
+        $empresas->save();
     }
 
-    public function update(Request $request, Empresa $empresa)
+    public function update(Request $request, Empresa $empresas)
     {
-        $empresa = Empresa::findOrfail($request->id);
-        $empresa->nombre = $request->nombre;
-        $empresa->direccion = $request->direccion;
-        $empresa->telefono = $request->telefono;
-        $empresa->encargado = $request->encargado;
-        $empresa->idarea = $request->idarea;
-        $empresa->idusuario = $request->idusuario;
-        $empresa->save();
+        $empresas = Empresa::findOrfail($request->id);
+        $empresas->nombre = $request->nombre;
+        $empresas->direccion = $request->direccion;
+        $empresas->telefono = $request->telefono;
+        $empresas->encargado = $request->encargado;
+        $empresas->correo = $request->correo;
+        $empresas->telencargado = $request->telencargado;
+        $empresas->idarea = $request->idarea;
+        $empresas->idusuario = $request->idusuario;
+        $empresas->save();
     }
     public function destroy($id)
     {
-        $empresa =Empresa::findOrfail($id);
-        $empresa->delete();
+        $empresas =Empresa::findOrfail($id);
+        $empresas->delete();
         
     }
 }

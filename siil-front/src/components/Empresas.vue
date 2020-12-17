@@ -65,10 +65,11 @@
                           append-icon="mdi-folder-outline"
                           v-model="empresa.telefono"
                           @keyup="errorsNombre = []"
-                          :rules="[v => !!v || 'El Telefono Es Requerido']"
+                          :rules="phoneRules"
                           label="Telefono"
                           required
                           :error-messages="errorsNombre"
+                          maxlength="8"
                         ></v-text-field> 
 
                         <v-text-field
@@ -79,6 +80,25 @@
                           label="Encargado"
                           required
                           :error-messages="errorsNombre"
+                        ></v-text-field> 
+                        <v-text-field
+                          append-icon="mdi-folder-outline"
+                          v-model="empresa.correo"
+                          @keyup="errorsNombre = []"
+                          :rules="emailRules"
+                          label="Correo"
+                          required
+                          :error-messages="errorsNombre"
+                        ></v-text-field> 
+                         <v-text-field
+                          append-icon="mdi-folder-outline"
+                          v-model="empresa.telencargado"
+                          @keyup="errorsNombre = []"
+                          :rules="phoneRules"
+                          label="Tel.Encargado"
+                          required
+                          :error-messages="errorsNombre"
+                          maxlength="8"
                         ></v-text-field> 
 
                         <v-select
@@ -92,6 +112,7 @@
                       ></v-select>
 
                       <v-select
+                     
                         v-model="empresa.idusuario"
                         label="Seleccionar usuario"
                         :rules="[v => !!v || 'Este Campor es requerido']"
@@ -99,7 +120,7 @@
                         :item-text="'nombres'"
                         :item-value="'id'"
                     
-                      ></v-select>
+                      ></v-select>                  
                       </v-form>
                     </v-container>
                   </v-card-text>
@@ -176,6 +197,8 @@ export default {
         { text: "Direccion", value: "direccion" , class:'blue-grey lighten-4 '},
         { text: "Telefono", value: "telefono", class:'blue-grey lighten-4 ' },
         { text: "Encargado", value: "encargado" , class:'blue-grey lighten-4 '},
+        { text: "Correo", value: "correo" , class:'blue-grey lighten-4 '},
+        { text: "Tel.Encargado", value: "telencargado" , class:'blue-grey lighten-4 '},
         { text: "Area", value: "idarea", class:'blue-grey lighten-4 ' },
         { text: "Acciones", value: "action", sortable: false, align: "center", class:'blue-grey lighten-4 ' }
       ],
@@ -190,6 +213,8 @@ export default {
         direccion:"",
         telefono:"",
         encargado:"",
+        correo:"",
+        telencargado:"",
         idarea: "",
         idusuario: ""
         
@@ -198,8 +223,15 @@ export default {
       snackbar: false,
       msjSnackBar: "",
       errorsNombre: [],
-      editedEmpresa: 0
+      editedEmpresa: 0,
+      phoneRules: [
+        v => /^([0-9])*$/.test(v) || 'Formato no valido',
+      ],
+      emailRules: [ 
+        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail invalido'
+      ]
     };
+    
   },
    computed: {
       formTitle(){
@@ -238,7 +270,7 @@ export default {
       let me = this;
       me.loader = true;
       
-       me.$http.get(`${me.$url}/usuarios`)
+       me.$http.get(`${me.$url}/usuarios` )
         .then(function(response) {
           console.log(response.data);
           me.listcoordinadores = response.data;
@@ -273,6 +305,8 @@ export default {
               nombre: "",
                 direccion:"",
                 telefono:"",
+                correo:"",
+                telencargado:"",
                 idarea: "",
                 idusuario: ""
           };
@@ -337,6 +371,7 @@ export default {
            me.$http.post(`${me.$url}/empresas`, me.empresa)
             .then(function(response) {
             me.verificarAccionDato(response.data, response.status, accion);
+            
             me.cerrarModal();
           })
           .catch(function(error) {
@@ -407,7 +442,7 @@ export default {
                 if(error.response.status == 510){
                   Toast.fire({
                     icon: "error",
-                    title: "No se puede eliminar esta Areas, tiene registrados"
+                    title: "No se puede eliminar esta Empresa, tiene registrados"
                   });
                 }
                 me.loader = false;
@@ -432,7 +467,7 @@ export default {
             this.fetchEmpresa(); 
             Toast.fire({
               icon: "success",
-              title: "Areas Registrada con Exito"
+              title: "Empresa Registrada con Exito"
             });
             me.loader = false;
             break;
@@ -443,7 +478,7 @@ export default {
             this.fetchEmpresa(); 
             Toast.fire({
               icon:"success",
-              title: "Areas Actualizada con Exito"
+              title: "Empresa Actualizada con Exito"
             });
             me.loader = false;
             break;
@@ -453,7 +488,7 @@ export default {
                 //se elimina del array de categorias activos si todo esta bien en el backend
                 me.arrayEmpresas.splice(me.editedEmpresa, 1);
                 //se lanza mensaje final
-                me.$swal.fire("Eliminado", "Area Eliminada", "success");
+                me.$swal.fire("Eliminado", "Empresa Eliminada", "success");
               }catch (error) {
                 console.log(error);
               }
