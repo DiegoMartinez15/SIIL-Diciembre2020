@@ -17,8 +17,8 @@
           
         >
       <v-card width="350" class="mx-auto  mt-16  pl-5 pr-5 ">
-        <v-card-title class="justify-center pt-12 font-weight-medium  "  id="title">
-          Inicia Sesión
+        <v-card-title class="justify-center pt-12 font-weight  "  id="title">
+          Bienvenido/as
         </v-card-title>
         <v-img 
               id="id" :src="'/itcha/escudo.png'"></v-img>
@@ -98,21 +98,6 @@
       };
     },
     methods: {
-      //Metodo registro de usuarios con token listo ya no se hace aqui
-        /*fetchUsuarios() {
-            let me = this;
-            me.$http
-            .post(`${me.$url}/users`, me.user )
-            .then(function(response){
-              me.dialog = false;
-              alert("Registrado con exito");
-                console.log(response.data);
-            })
-            .catch(function(error){
-              console.log(error);
-            });
-          },*/
-          //Metodo para aunteticar al usuario 
         loginUsuario(){
         let me = this;
         if(me.$refs.formUsuarios.validate()){
@@ -148,10 +133,13 @@
                     case "A":
                       me.$router.push('/ofertas');
                       me.$store.commit('add',dataU.nombres);
+                       me.$store.commit('setAdmin',dataU);
+                        /*console.log("Hola Aqui estoy"+JSON.stringify(me.$store.state.usuarioLog));
+                        console.log(me.$store.state.usuarioLog.id);*/
                       me.$store.commit('permission',user.idtipo_usuario);
                       me.$store.commit('setid',user.idaspirante);
-                      console.log('este es el id del aspirante'+ user.idaspirante)
-                      me.$swal({title:"Bienvenido",position: 'center',
+                      me.$swal({title:"Bienvenido",
+                      position: 'center',
                       icon: 'success',                                      
                       showConfirmButton: false,
                       timer: 2500
@@ -161,9 +149,10 @@
                     case "N":
                       me.$router.push('/accept');
                         me.$store.commit('add',dataU.nombres);
+                        me.$store.commit('setAdmin',dataU);
                         me.$store.commit('permission',user.idtipo_usuario);
                         me.$store.commit('setid',user.idaspirante);
-                        console.log('este es el id del aspirante'+ user.idaspirante)
+                        
                         me.$swal({
                           title:"Llena el proceso para continuar",
                           timer: 2500,showConfirmButton: false,                                            
@@ -226,7 +215,7 @@
 }
 #title{
   
-  font-family: "Segoe UI";
+  font-family: "system-ui,monospace";
   font-size: 30px;
   text-align: center;
   

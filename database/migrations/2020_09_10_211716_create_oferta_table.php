@@ -24,8 +24,11 @@ class CreateOfertaTable extends Migration
             $table->integer('idcordinador')->unsigned();
             $table->foreign('idcordinador')->references('id')->on('coordinadores');
             $table->string('img',300);
-            
-            
+            $table->string('vacante',100);
+            $table->string('estado',1);
+            $table->string('lugar_trabajo',100);
+            $table->string('contacto',100);
+        
             $table->timestamps();
         });
     }
@@ -40,3 +43,4 @@ class CreateOfertaTable extends Migration
         Schema::dropIfExists('oferta');
     }
 }
+

@@ -25,7 +25,7 @@ Route::post('login', 'UserController@login');
 
 
 //*********************************************************************
-/*Proteccion de rutas lo que se coloque dentro del gropu sera protegidos
+/*Proteccion de rutas lo que se coloque dentro del group sera protegidos
 con la autenticacion de laravel*/
 Route::group(['middleware'=>'auth:api'],function(){
 
@@ -40,14 +40,17 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::ApiResource("carreras","CarreraController"); 
     Route::ApiResource("perfil","FormularioPerfilController"); 
     Route::ApiResource("anio_graduacion","AnioGraduacionController");  
-    Route::ApiResource("ofertas","OfertaController");
+    Route::ApiResource("ofertas","OfertasController");
     Route::ApiResource("requisitos","RequisitoController");
-    Route::get('/ofertasr', 'OfertaController@find');
+    Route::get('/ofertasr', 'OfertasController@find');
+    Route::get('/ofertasw', 'OfertasController@findWork');
+    Route::get('/ofertaswl', 'OfertasController@findworklist');
+    Route::put('/ofertas/{id}', 'OfertaController@update');
    
     
 });
 /* FIN de Group */
-//************************************************************************** */
+//***************************************************************************/
 
 
 

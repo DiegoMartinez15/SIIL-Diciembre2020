@@ -48,6 +48,7 @@ const routes = [{
                 path: '/addofertas',
                 name: 'add',
                 component: AddBussiness,
+                meta: { requiresAuth: true }
 
             },
             {
@@ -100,6 +101,22 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some(route => route.meta.requiresAuth)) {
+
+        if (sessionStorage.getItem('tokenS') != null && localStorage.getItem('token') != null){
+            if(store.state.role != 2 ){
+                next()
+            }else{
+                 next('/ofertas')
+            }
+            
+        }else{
+             next('/login')
+
+        }
+
+
+
+
         if (store.state.role != 2 && sessionStorage.getItem('tokenS') != null) {
             next()
         } else {

@@ -20,11 +20,11 @@ class CreateRequisitosTable extends Migration
             $table->string('nivel_academico',100);
             $table->string('experiencia',100);
             $table->string('horario',100);
-            $table->string('descripcion',100);
+            $table->string('conocimiento',100);
             $table->string('licencia',100);
             $table->string('ambiente',100);
             $table->string('prestaciones',100);
-           
+            $table->string('comicion',100);
             $table->integer('idoferta')->unsigned();
             $table->foreign('idoferta')->references('id')->on('empresas');
             

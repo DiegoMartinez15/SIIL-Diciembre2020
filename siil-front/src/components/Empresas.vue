@@ -40,7 +40,7 @@
                   </v-card-title>
                   <v-card-text>
                     <v-container>
-                      <v-form ref="formEmpresas" v-model="validForm" :lazy-validation="true">
+                      <v-form ref="formEmpresas" v-model="validForm" >
                         <v-text-field
                           append-icon="mdi-folder-outline"
                           v-model="empresa.nombre"
@@ -48,7 +48,7 @@
                           :rules="[v => !!v || 'Nombre Es Requerido']"
                           label="Nombre"
                           required
-                          :error-messages="errorsNombre"
+                          
                         ></v-text-field> 
 
                         <v-text-field
@@ -58,7 +58,7 @@
                           :rules="[v => !!v || 'La Direccion Es Requerida']"
                           label="Direccion"
                           required
-                          :error-messages="errorsNombre"
+                          
                         ></v-text-field> 
 
                         <v-text-field
@@ -68,7 +68,7 @@
                           :rules="[v => !!v || 'El Telefono Es Requerido']"
                           label="Telefono"
                           required
-                          :error-messages="errorsNombre"
+                          
                         ></v-text-field> 
 
                         <v-text-field
@@ -78,7 +78,7 @@
                           :rules="[v => !!v || 'El Encargado Es Requerido']"
                           label="Encargado"
                           required
-                          :error-messages="errorsNombre"
+                          
                         ></v-text-field> 
 
                         <v-select
@@ -270,11 +270,13 @@ export default {
         setTimeout(() => {
           me.empresa = {
             id:null,
-              nombre: "",
-                direccion:"",
-                telefono:"",
-                idarea: "",
-                idusuario: ""
+            nombre: "",
+            direccion:"",
+            telefono:"",
+            encargado:"",
+            idarea: "",
+            idusuario: ""
+        
           };
           me.resetValidation();
         }, 300);

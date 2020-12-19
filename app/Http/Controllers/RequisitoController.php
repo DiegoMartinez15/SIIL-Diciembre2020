@@ -23,7 +23,7 @@ class RequisitoController extends Controller
         ->join('empresas','oferta.idempresa','=','empresas.id')
         ->join('usuarios','oferta.idusuario','=','usuarios.id')
         ->select('requisitos.*',
-        'oferta.img as img','oferta.salario as salario','empresas.nombre as idempresa','usuarios.nombres as idusuarios')
+        'oferta.img as img','oferta.salario as salario','oferta.contacto as contacto','empresas.nombre as idempresa','usuarios.nombres as idusuarios')
         ->Where("requisitos.id",$request->id)->get();
 
         return $requisito;

@@ -46,56 +46,120 @@
 
       <v-col
           cols="12"
-          md="2"
+          md="3"
           style=" display:flex;margin: 0 10px;"
         >
           <v-text-field 
-          type="number"
-          min="1"
+            type="number"
+            min="1"
             v-model="ofertas.salario"
+            :disabled="ofertas.salario == 'Adefinir'"
             :rules="[v => !!v || 'Este Campo es requerido']"
             label="Salario"
             required
           ></v-text-field>
+          
+           <v-checkbox
+           class="ml-5"
+           
+            v-model="ofertas.salario"
+            label="Adefinir"
+            value="Adefinir"
+          ></v-checkbox>
         </v-col>
 
 
 
         <v-col
           cols="12"
-          md="4"
+          md="2"
         >
-         <v-select label="Empresa"
-         v-model="ofertas.idempresa"
-         :rules="[v => !!v || 'Este Campo es requerido']"
-         :items="arrayEmpresas"
-         :item-text="'nombre'"
-         :item-value="'id'"></v-select>
+     
+        <v-text-field 
+            type="number"
+            min="1"
+            v-model="ofertas.vacantes"
+            :rules="[v => !!v || 'Este Campo es requerido']"
+            label="Vacantes Cant."
+            required
+          ></v-text-field>
 
          
         </v-col>
 
         <v-col
           cols="12"
-          md="4"
+          md="3"
         >
-         <v-select label="Usuario de registro"
+
+           <v-autocomplete
+            v-model="ofertas.idempresa"          
+            label="Empresas"
+            :rules="[v => !!v || 'Este Campo es requerido']"
+            :items="arrayEmpresas"
+            :item-text="'nombre'"
+            :item-value="'id'"
+            clearlead
+            required
+          ></v-autocomplete>
+        </v-col>
+        <v-col
+          cols="12"
+          md="3"
+          style=" display:flex;margin: 0 10px;"
+        >
+          <v-text-field 
+            v-model="ofertas.contacto"
+            :rules="[v => !!v || 'Este Campo es requerido']"
+            label="contacto"
+            required
+          ></v-text-field>
+
+           <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon              
+              v-bind="attrs"
+              v-on="on"
+            >
+              info
+            </v-icon>
+          </template>
+          <span>Contacto para enviar informacion puede ser telefono o E-mail</span>
+       </v-tooltip>
+        </v-col>
+
+        <v-col
+          cols="12"
+          sm="6"
+          md="3"
+        >
+         <v-text-field 
+         
+            v-model="ofertas.lugar_trabajo"
+            :rules="[v => !!v || 'Este Campo es requerido']"
+            label="zona de la vacante"
+            required
+          ></v-text-field>
+        </v-col>
+        <!-- <v-autocomplete label="Usuario de registro"
          :rules="[v => !!v || 'Este Campo es requerido']"
          v-model="ofertas.idusuario"
           :items="arrayUsuarios"
          :item-text="'nombres'"
-         :item-value="'id'"></v-select>
+         :item-value="'id'"></v-autocomplete>-->
+
+         
       
-          <div class="custom-input-file col-md-6 col-sm-6 col-xs-6">
-            <input type="file" @change="ObtenerImagen" id="fichero-tarifas" class="input-file" value="" accept="image/*"/>
+          <div class="custom-input-file col-md-6 col-sm-6 col-xs-6 mb-10">
+            <input type="file" @change="ObtenerImagen" id="fichero-tarifas" class="input-file " value="" accept="image/*"/>
             Subir Imagen...
           </div>
-        </v-col>
+        
         <v-col
           cols="12"
-          md="5"
+          md="4"
         >
-        <div id="imgborder">
+        <div id="imgborder" >
         
         <v-img   width="145" height="155" :src="imagen"></v-img>
         </div>
@@ -113,12 +177,12 @@
           cols="12"
           md="4"
         >
-         <v-select label="Genero"
+         <v-autocomplete label="Genero"
          v-model="ofertas.genero"
          :rules="[v => !!v || 'Este Campo es requerido']"
          :items="generos"
          :item-text="'genero'"
-         :item-value="'genero'"></v-select>
+         :item-value="'genero'"></v-autocomplete>
         </v-col>
 
         <v-col
@@ -154,12 +218,12 @@
           cols="12"
           md="4"
         >
-         <v-select label="Nivel Academico"
+         <v-autocomplete label="Nivel Academico"
          v-model="ofertas.nivel_academico"
          :rules="[v => !!v || 'Este Campo es requerido']"
          :items="nivel_academico"
          :item-text="'nivel'"
-         :item-value="'nivel'"></v-select>
+         :item-value="'nivel'"></v-autocomplete>
         </v-col>
 
         <v-col
@@ -177,24 +241,24 @@
           cols="12"
           md="2"
         >
-         <v-select label="Horario"
+         <v-autocomplete label="Horario"
          :rules="[v => !!v || 'Este Campo es requerido']"
          v-model="ofertas.horarios"
          :items="horarios"
          :item-text="'horario'"
-         :item-value="'horario'"></v-select>
+         :item-value="'horario'"></v-autocomplete>
         </v-col>
 
          <v-col
           cols="12"
           md="2"
         >
-         <v-select label="Licencia de conducir"
+         <v-autocomplete label="Licencia de conducir"
          v-model="ofertas.licencia"
          :rules="[v => !!v || 'Este Campo es requerido']"
          :items="licencia"
          :item-text="'estado'"
-         :item-value="'estado'"></v-select>
+         :item-value="'estado'"></v-autocomplete>
         </v-col>
         <v-col
           cols="12"
@@ -210,10 +274,15 @@
             label="Prestaciones de Ley"
             value="Prestaciones de Ley"
           ></v-checkbox>
+          <v-checkbox
+            v-model="ofertas.comicion"
+            label="Comiciones"
+            value="Comiciones"
+          ></v-checkbox>
         </v-col>
          <v-col 
           cols="12"
-          style=" display:flex;margin: 0 10px;"
+          style="display:flex;margin: 0 10px;margin-top:-50px"
           md="8"
         >
            <v-textarea
@@ -236,7 +305,7 @@
               info
             </v-icon>
           </template>
-          <span>Descripcion de la oferta o labores a efectuar</span>
+          <span>Conocimientos requeridos</span>
        </v-tooltip>
         </v-col>
 
@@ -268,10 +337,11 @@
         errorsNombre:[],
         arrayEmpresas: [],
         arrayUsuarios: [],
-      validForm: false,
-      loader:false,
-      ofertas:{
-        prestacione:'',
+        validForm: false,
+        loader:false,
+        ofertas:{
+        comicion: '',
+        prestaciones:'',
         ambiente:'',
         cargo: '',
         img:'',
@@ -281,10 +351,12 @@
         edad:'',
         experiencia:'',
         conocimiento:'',
+        contacto:'',
         licencia:'',
         idempresa: null,
         idusuario:null,       
         salario:'',
+        lugar_trabajo:'',
        
       },
       ambiente:[
@@ -316,6 +388,36 @@
       };
     },
     methods:{
+        cerrarModal(){
+        let me = this;
+        setTimeout(() => {
+          me.ofertas={
+              lugar_trabajo:'',
+              Vacantes: null,
+              comicion: '',
+              prestacione:'',
+              ambiente:'',
+              cargo: '',
+              img:null,
+              genero:'',
+              nivel_academico:'',
+              horarios:'',
+              edad:'',
+              experiencia:'',
+              conocimiento:'',
+              licencia:'',
+              idempresa: null,
+              idusuario:null,       
+              salario:'',
+              contacto:'',
+          };
+          me.resetValidation();
+        }, 300);
+        },
+      resetValidation() {
+        let me = this;        
+        me.$refs.formOferta.resetValidation();
+      },
         fetchEmpresa() {  
         let token = sessionStorage.getItem('tokenS');
         let me = this,
@@ -368,15 +470,20 @@
        formData.append('cargo',this.ofertas.cargo);
        formData.append('genero',this.ofertas.genero);
        formData.append('nivel_academico',this.ofertas.nivel_academico);
-       formData.append('horarios',this.ofertas.horarios);
+       formData.append('horario',this.ofertas.horarios);
        formData.append('edad',this.ofertas.edad);
        formData.append('experiencia',this.ofertas.experiencia);
        formData.append('conocimiento',this.ofertas.conocimiento);
        formData.append('licencia',this.ofertas.licencia);
        formData.append('prestaciones',this.ofertas.prestaciones);
+       formData.append('comiciones',this.ofertas.comicion);
+       formData.append('vacantes',this.ofertas.vacantes);
        formData.append('ambiente',this.ofertas.ambiente);
        formData.append('idempresa',this.ofertas.idempresa);
-       formData.append('idusuario',this.ofertas.idusuario);
+       formData.append('contacto',this.ofertas.contacto);
+       formData.append('lugar_trabajo',this.ofertas.lugar_trabajo);
+       let user = this.$store.state.usuarioLog.id;
+       formData.append('idusuario',user);
        formData.append('salario',this.ofertas.salario);
 
       
@@ -440,10 +547,9 @@
         switch (accion) {
           case "add":
             //Agrego al array de categorias el objeto que devuelve el backend
-            
             Toast.fire({
               icon: "success",
-              title: "Areas Registrada con Exito"
+              title: "Oferta Registrada con Exito"
             });
             me.loader = false;
             break;
@@ -454,7 +560,7 @@
             this.fetchAreas(); 
             Toast.fire({
               icon:"success",
-              title: "Areas Actualizada con Exito"
+              title: "oferta Actualizada con Exito"
             });
             me.loader = false;
             break;
@@ -464,7 +570,7 @@
                 //se elimina del array de categorias activos si todo esta bien en el backend
                 me.arrayAreas.splice(me.editedAreas, 1);
                 //se lanza mensaje final
-                me.$swal.fire("Eliminado", "Area Eliminada", "success");
+                me.$swal.fire("Eliminado", "oferta desactivada", "success");
               }catch (error) {
                 console.log(error);
               }
@@ -554,13 +660,14 @@
 }
 #imgborder{
   
-  margin-top: 4px;
    display: flex;
    margin: 0 auto;
    align-items: center;
-  width: 150px;
-  height: 160px;
-  border: lightslategrey 2px dotted;
+    margin-top:-50px;
+    margin-right:10px;
+   width: 150px;
+   height: 160px;
+   border: lightslategrey 2px dotted;
 }
 #cardform1{
 background: #f6f6ff;
