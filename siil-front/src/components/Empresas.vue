@@ -101,7 +101,7 @@
                           maxlength="8"
                         ></v-text-field> 
 
-                        <v-select
+                        <v-autocomplete
                         v-model="empresa.idarea"
                         label="Seleccionar Area"
                          :rules="[v => !!v || 'Este Campor es requerido']"
@@ -109,9 +109,9 @@
                         :item-text="'nombre'"
                         :item-value="'id'"
                     
-                      ></v-select>
+                      ></v-autocomplete>
 
-                      <v-select
+                      <!--<v-select
                      
                         v-model="empresa.idusuario"
                         label="Seleccionar usuario"
@@ -120,7 +120,7 @@
                         :item-text="'nombres'"
                         :item-value="'id'"
                     
-                      ></v-select>                  
+                      ></v-select>-->                  
                       </v-form>
                     </v-container>
                   </v-card-text>
@@ -216,7 +216,7 @@ export default {
         correo:"",
         telencargado:"",
         idarea: "",
-        idusuario: ""
+        
         
       },
       validForm: true,
@@ -367,7 +367,7 @@ export default {
          let accion = me.empresa.id == null ? "add" : "upd";
         me.loader = true;
         if(accion=="add"){
-          console.log(me.empresa);
+          me.empresa["idusuario"] = this.$store.state.usuarioLog.id;
            me.$http.post(`${me.$url}/empresas`, me.empresa)
             .then(function(response) {
             me.verificarAccionDato(response.data, response.status, accion);
@@ -387,6 +387,7 @@ export default {
           });
         }else{
             //para actualizar
+             me.empresa["idusuario"] = this.$store.state.usuarioLog.id;
             me.$http.put(`${me.$url}/empresas/`+ me.empresa.id,me.empresa)
             .then(function(response) {
               console.log(response.data);

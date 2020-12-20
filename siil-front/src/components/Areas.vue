@@ -355,6 +355,9 @@
       let x = sessionStorage.getItem('tokenS');
       if(x != null){
         this.fetchAreas();
+
+        let y = "Aqui"
+        console.log(y.substr(0,1));
       }else{
          
          this.$router.push('/login')

@@ -14,6 +14,7 @@ export default new Vuex.Store({
         role: '',
         idaspirante: '',
         usuarioLog:[],
+        avatar:'',
 
     },
     getters: {
@@ -40,6 +41,13 @@ export default new Vuex.Store({
 
         },
         setAdmin(state, payload){
+            if(payload != null){
+                state.usuarioLog = payload;
+                return
+            }
+        },
+
+        setNameAvatar(state, payload){
             if(payload != null){
                 state.usuarioLog = payload;
                 return

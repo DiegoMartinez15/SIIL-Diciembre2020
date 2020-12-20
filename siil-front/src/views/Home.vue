@@ -265,9 +265,14 @@
       >
       <v-toolbar-title
         
-        class="ml-0"
+        class="ml-0 d-flex"
+        
       >
-        <h4 class="text-right" style="font-size:16px">Sistema de Intermediacion Laboral</h4>
+       <v-avatar>
+      <v-img :src="'/itcha/escudo.png'" ></v-img>
+    </v-avatar>
+      
+        <h4 class="text-right mt-3 ml-2" style="font-size:16px">Sistema de Intermediacion Laboral</h4>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <!--<v-btn @click="logout()" icon>

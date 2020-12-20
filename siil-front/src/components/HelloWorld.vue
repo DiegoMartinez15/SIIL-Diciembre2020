@@ -446,6 +446,7 @@
           });
        
         }else{
+          console.log(me.arraybusqueda);
           
            me.$http.get(`${me.$url}/ofertasr?nombre=`+me.arraybusqueda,header)
           .then(function(response){                        
@@ -549,7 +550,12 @@
         .then(function(response){
           me.items = response.data.ofertas.data;
           me.pagination = response.data.pagination;
-          me.loader = false;
+          if(me.items.length == 0){
+             
+            me.mostar = false;
+            me.loader = false;
+          }
+          
         })
         .catch(function(error){
           me.loader = false;
@@ -626,7 +632,7 @@
             if (statusCode == 200) {
               try{
                 //se elimina del array de categorias activos si todo esta bien en el backend
-                me.items.splice(me.editedAreas, 1);
+                me.items.splice(me.editedOferta, 1);
                 //se lanza mensaje final
                 me.$swal.fire("Exitosamente", "Oferta desabilitada", "success");
               }catch (error) {
