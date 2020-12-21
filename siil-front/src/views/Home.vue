@@ -77,7 +77,7 @@
                 <v-icon>admin_panel_settings</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>Menu administrador</v-list-item-title>
+                <v-list-item-title>Men&uacute; administrador</v-list-item-title>
               </v-list-item-content>
           
         </template>
@@ -115,7 +115,7 @@
                 <v-icon>category</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>Areas</v-list-item-title>
+                <v-list-item-title>&Aacute;reas</v-list-item-title>
               </v-list-item-content>
             </v-list-item> 
 
@@ -140,7 +140,7 @@
                     <v-icon>supervised_user_circle</v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
-                  <v-list-item-title>Gestion de Usuarios</v-list-item-title>
+                  <v-list-item-title>Gesti&oacute;n de Usuarios</v-list-item-title>
                 </v-list-item-content>
           </template>
             <v-list-item link :to="{path:'/usuarios'}">
@@ -148,7 +148,7 @@
                 <v-icon>verified_user</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>administradores</v-list-item-title>
+                <v-list-item-title>Administradores</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
         </v-list-group>
@@ -196,7 +196,7 @@
                 <v-icon>leaderboard</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>Estadisticas</v-list-item-title>
+                <v-list-item-title>Estad&iacute;sticas</v-list-item-title>
               </v-list-item-content>
           
         </template>
@@ -207,7 +207,7 @@
                 <v-icon>multiline_chart</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>Estadistica 1</v-list-item-title>
+                <v-list-item-title>Estad&iacute;stica 1</v-list-item-title>
               </v-list-item-content>
          </v-list-item>  
             <!--MENU DE MARCAS-->
@@ -216,7 +216,7 @@
                 <v-icon>trending_up</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>Estadistica 2</v-list-item-title>
+                <v-list-item-title>Estad&iacute;stica 2</v-list-item-title>
               </v-list-item-content>
             </v-list-item>      
             <!--Menu de Producto--> 
@@ -225,7 +225,7 @@
                 <v-icon>bubble_chart</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>Estadistica 3</v-list-item-title>
+                <v-list-item-title>Estad&iacute;stica 3</v-list-item-title>
               </v-list-item-content>
             </v-list-item> 
         </v-list-group>
@@ -238,7 +238,7 @@
               </v-list-item-action>
               <v-list-item-content style="margin-left:-20px">
                 <v-list-item-title><v-btn style="border:2px solid grey" @click="logout()">
-                 Cerrar Session</v-btn></v-list-item-title>
+                 Cerrar Sesi&oacute;n</v-btn></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           <!--<v-list-item class="mt-2 mb-2">
@@ -342,7 +342,7 @@ export default {
                   sessionStorage.clear();
                   me.$swal({
                           position: 'center',
-                          title: 'Session Cerrada',
+                          title: 'Sesión Cerrada',
                           showConfirmButton: false,
                           timer: 3000,
                           imageUrl: '/itcha/logout.png',

@@ -26,7 +26,7 @@
           <v-form  ref="formUsuarios" v-model="validForm" :lazy-validation="true">
           <v-text-field
            required :rules="[v => !!v || 'El codigo es requerido']"
-            label="Codigo de Carnet"
+            label="Código de Carnet"
             v-model="login.email"
              prepend-icon="mdi-account-circle"/>
           <v-text-field 
@@ -53,7 +53,7 @@
                 <v-btn block color="info" @click="loginUsuario()" >
                   <v-icon left>
                     mdi mdi-account-key
-                  </v-icon>Login
+                  </v-icon>Entrar
                 </v-btn>
               </div>
             </div>

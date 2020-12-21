@@ -2,7 +2,7 @@
 <v-app  class="img">
   <div>
    <v-card width="440" class="mx-auto  mt-14  pl-5 pr-5 ">
-        <v-card-title class="justify-center pt-12 "  id="title">Proceso de Aceptacion</v-card-title>
+        <v-card-title class="justify-center pt-12 "  id="title">Proceso de Aceptación</v-card-title>
         <v-spacer></v-spacer>
         <v-card-text>
          <h4 class=" dark--text text-center ">Acceptas El proceso de Intermedacion Laboral</h4>
@@ -46,13 +46,13 @@
                   <v-radio-group v-model="radioGroup">
                     <v-radio
                     @click="Campo = false"
-                    label="Trabajare"
-                    value="Trabajare"
+                    label="Trabajaré"
+                    value="Trabajar"
                     ></v-radio>
                      <v-radio
                      @click="Campo = false"
                      checked
-                    label="Seguire estudiando"
+                    label="Seguiré estudiando"
                     value="Seguire estudiando"
                       ></v-radio>
                   </v-radio-group>
@@ -125,7 +125,7 @@
         </v-card-title>
         <v-card-text>
         Intermedacion Laboral es proceso que Itcha proporcia a sus Estudiantes durante un año,
-        ayudando abridar ofertas de empleo en el sector publico y privado.
+        ayudando a brindar ofertas de empleo en el sector publico y privado.
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
