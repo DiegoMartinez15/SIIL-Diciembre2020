@@ -36,6 +36,8 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::get('logout', 'UserController@logout');
     Route::get('/aspirante/{id}', 'AspiranteController@index');
     Route::get('/egresado/{id}', 'EgresadoController@index');
+    Route::get('/formulario/list/{id}', 'FormularioPerfilController@index');
+    Route::put("perfil/update","FormularioPerfilController@update");  
     Route::ApiResource("idioma","SegundoIdiomaController");
     Route::ApiResource("carreras","CarreraController"); 
     Route::ApiResource("perfil","FormularioPerfilController"); 
