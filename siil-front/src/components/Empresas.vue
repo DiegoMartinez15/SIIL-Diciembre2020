@@ -55,8 +55,8 @@
                           append-icon="mdi-folder-outline"
                           v-model="empresa.direccion"
                           @keyup="errorsNombre = []"
-                          :rules="[v => !!v || 'La Direccion Es Requerida']"
-                          label="Direccion"
+                          :rules="[v => !!v || 'La Dirección Es Requerida']"
+                          label="Dirección"
                           required
                           
                         ></v-text-field> 
@@ -66,7 +66,7 @@
                           v-model="empresa.telefono"
                           @keyup="errorsNombre = []"
                           :rules="phoneRules"
-                          label="Telefono"
+                          label="Teléfono"
                           required
                           :error-messages="errorsNombre"
                           maxlength="8"
@@ -103,7 +103,7 @@
 
                         <v-autocomplete
                         v-model="empresa.idarea"
-                        label="Seleccionar Area"
+                        label="Seleccionar Área"
                          :rules="[v => !!v || 'Este Campor es requerido']"
                         :items="listarea"
                         :item-text="'nombre'"
@@ -194,12 +194,12 @@ export default {
       arrayEmpresas: [],
       hTBEmpresas: [
         { text: "Nombre", value: "nombre", class:'blue-grey lighten-4 ' },
-        { text: "Direccion", value: "direccion" , class:'blue-grey lighten-4 '},
-        { text: "Telefono", value: "telefono", class:'blue-grey lighten-4 ' },
+        { text: "Dirección", value: "direccion" , class:'blue-grey lighten-4 '},
+        { text: "Teléfono", value: "telefono", class:'blue-grey lighten-4 ' },
         { text: "Encargado", value: "encargado" , class:'blue-grey lighten-4 '},
         { text: "Correo", value: "correo" , class:'blue-grey lighten-4 '},
         { text: "Tel.Encargado", value: "telencargado" , class:'blue-grey lighten-4 '},
-        { text: "Area", value: "idarea", class:'blue-grey lighten-4 ' },
+        { text: "Área", value: "idarea", class:'blue-grey lighten-4 ' },
         { text: "Acciones", value: "action", sortable: false, align: "center", class:'blue-grey lighten-4 ' }
       ],
       loader: false,

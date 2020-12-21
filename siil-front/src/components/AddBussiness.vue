@@ -111,7 +111,7 @@
           <v-text-field 
             v-model="ofertas.contacto"
             :rules="[v => !!v || 'Este Campo es requerido']"
-            label="contacto"
+            label="Contacto"
             required
           ></v-text-field>
 
@@ -124,7 +124,7 @@
               info
             </v-icon>
           </template>
-          <span>Contacto para enviar informacion puede ser telefono o E-mail</span>
+          <span>Contacto para enviar informaci&oacute;n puede ser telefono o E-mail</span>
        </v-tooltip>
         </v-col>
 
@@ -170,14 +170,14 @@
     </v-container>
    <v-container>
     <v-card id="cardform1">
-      <v-card-title><h4 style="font-size:25px">II. Datos de los requisitos de las ofertas</h4></v-card-title>
+      <v-card-title><h4 style="font-size:25px">II. Datos de requisitos de ofertas</h4></v-card-title>
       <v-card-subtitle>
      <v-row>
          <v-col
           cols="12"
           md="4"
         >
-         <v-autocomplete label="Genero"
+         <v-autocomplete label="Género"
          v-model="ofertas.genero"
          :rules="[v => !!v || 'Este Campo es requerido']"
          :items="generos"
@@ -211,14 +211,14 @@
               info
             </v-icon>
           </template>
-          <span>Edad minima para obtener el empleo</span>
+          <span>Edad mínima para obtener el empleo</span>
        </v-tooltip>
         </v-col>
         <v-col
           cols="12"
           md="4"
         >
-         <v-autocomplete label="Nivel Academico"
+         <v-autocomplete label="Nivel Académico"
          v-model="ofertas.nivel_academico"
          :rules="[v => !!v || 'Este Campo es requerido']"
          :items="nivel_academico"
@@ -293,7 +293,7 @@
             name="txaHabilidades"
             :rules="[v => !!v || 'Este Campo es requerido']"
             label="Conocimientos"
-            hint="digitar breve descripcion del empleo"
+            hint="Digitar breve descripcion del empleo"
           ></v-textarea>
           &nbsp;&nbsp;
           <v-tooltip bottom>
@@ -372,7 +372,7 @@
       generos:[
           {id:'1',genero:'Masculinos'},
           {id:'2',genero:'Femenino'},
-          {id:'3',genero:'Ambos generos'},
+          {id:'3',genero:'Ambos géneros'},
       ],
       nivel_academico:[
           {id:'1',nivel:'Nivel de Educación Básica'},
@@ -560,7 +560,7 @@
             this.fetchAreas(); 
             Toast.fire({
               icon:"success",
-              title: "oferta Actualizada con Exito"
+              title: "Oferta Actualizada con Exito"
             });
             me.loader = false;
             break;
@@ -570,7 +570,7 @@
                 //se elimina del array de categorias activos si todo esta bien en el backend
                 me.arrayAreas.splice(me.editedAreas, 1);
                 //se lanza mensaje final
-                me.$swal.fire("Eliminado", "oferta desactivada", "success");
+                me.$swal.fire("Eliminado", "Oferta desactivada", "success");
               }catch (error) {
                 console.log(error);
               }
