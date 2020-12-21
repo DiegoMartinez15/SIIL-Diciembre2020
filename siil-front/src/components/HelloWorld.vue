@@ -32,7 +32,7 @@
         sm="4"
       >
         
-        <v-select
+        <v-autocomplete
         class="ml-5"
           width="100"
            v-model="arraybusqueda"
@@ -44,12 +44,12 @@
             solo
             @change="ofertaupd()"
                     
-            ></v-select>
+            ></v-autocomplete>
              
         
       
 
-          <v-select
+          <v-autocomplete
         class="ml-5"
           width="100"
           
@@ -62,7 +62,7 @@
             solo
             @change="findworklist()"
                     
-            ></v-select>
+            ></v-autocomplete>
           
          </v-col>
          
