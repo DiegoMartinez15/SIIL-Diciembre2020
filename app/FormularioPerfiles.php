@@ -47,15 +47,11 @@ class FormularioPerfiles extends Model
     public function aspirante(){
         return $this->hasMany('App/Aspirente');
     }
-    public function enfermedad(){
-        return $this->hasMany('App/EnfermedadesCronicas');
-    }
+
     public function egresado(){
         return $this->hasMany('App/Egresados');
     }
-    public function estados(){
-        return $this->hasMany('App/EstadosCiviles');
-    }
+
     public function idioma(){
         return $this->hasMany('App/SegundosIdiomas');
     }
