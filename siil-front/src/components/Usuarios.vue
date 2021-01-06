@@ -103,7 +103,7 @@
       </v-toolbar>
   </template>
       <!--Template para la columna de acciones -->
-      <template v-slot:item.action="{item}">
+      <template v-slot:item.action="{item}" >
         <!--<v-tooltip top>
          <template v-slot:activator="{on}">
             <v-btn
@@ -122,9 +122,9 @@
           <span>Actualizar Datos</span>
         </v-tooltip>-->
         &nbsp;&nbsp;
-        <v-tooltip top>
+        <v-tooltip top >
           <template v-slot:activator="{on}">
-            <v-btn
+            <v-btn v-show="show"
               color="info"            
               elevation="8"
               small
@@ -155,6 +155,7 @@
   export default {
     data () {
       return {
+        show:false,
         arrayUsuarios:[],
         
         hTBUsuarios:[
@@ -379,6 +380,13 @@
     },
     mounted() {
       let me = this;
+      me.admin = this.$store.state.role;
+      if(me.admin == 3 ){
+        me.show = false;
+      }else{
+        me.show = true;
+      }
+  
       me.fetchUsuarios();     
     },
   };

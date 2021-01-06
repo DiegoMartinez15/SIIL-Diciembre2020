@@ -108,6 +108,7 @@
                         :items="listarea"
                         :item-text="'nombre'"
                         :item-value="'id'"
+                        required
                     
                       ></v-autocomplete>
 
@@ -267,10 +268,16 @@ export default {
         });
       },
       fetchusuarios() {
-      let me = this;
+        let token = sessionStorage.getItem('tokenS');
+      let me = this,
+         header = {
+              headers: {
+                "Authorization": "Bearer "+ token,
+              },
+            };
       me.loader = true;
       
-       me.$http.get(`${me.$url}/usuarios` )
+       me.$http.get(`${me.$url}/usuarios`,header )
         .then(function(response) {
           console.log(response.data);
           me.listcoordinadores = response.data;
@@ -282,10 +289,16 @@ export default {
         });
     },
      fetchArea() {
-      let me = this;
+       let token = sessionStorage.getItem('tokenS');
+      let me = this,
+         header = {
+              headers: {
+                "Authorization": "Bearer "+ token,
+              },
+            };
       me.loader = true;
       
-       me.$http.get(`${me.$url}/areas`)
+       me.$http.get(`${me.$url}/areas`,header)
         .then(function(response) {
           me.listarea = response.data;
           me.loader = false;
@@ -324,51 +337,21 @@ export default {
         me.empresa = Object.assign({},empresa);
         me.modalEmpresa = true;
       },
-      /*saveAreas() {
-        let me = this;
-       
-        if(me.$refs.formAreas.validate()) {
-          let accion = me.areas.id == null ? "add" : "upd";
-          me.loader = true;
-          me.$http
-            .post(`${me.$url}/areas`, me.areas)
-            .then(function(response) {
-              me.verificarAccionDato(response.data, response.status, accion);
-              me.cerrarModal();
-            })
-            .catch(function(error) {
-              console.log(error);
-              //409 conflicts Error (Proveedor ya existe en la base de datos)
-              if(error.response.status == 409) {
-                me.setMessageToSnackBar("Areas Ya Existente", true);
-                me.errorsNombre = ["Nombre de la Areas ya Existente"];
-              }else {
-                me.$swal("Error", "Ocurrido Un Error Intente de Nuevovamente", "error");
-              }
-              me.loader = false;
-            });
-            }else{
-            //para actualizar
-            me.$http.put('/areas/'+me.area.id, me.area)
-               .then(function(response) {
-                   console.log(response.data);
-                    me.verificarAccionDato(response.data, response.status, "upd");
-                    me.cerrarModal();
-            })
-          .catch(function(error) {
-            console.log(error);
-            me.loader = false;
-          });
-        }
-      },*/
+     
       saveEmpresa() {
-      let me = this;
+        let token = sessionStorage.getItem('tokenS');
+      let me = this,
+        header = {
+              headers: {
+                "Authorization": "Bearer "+ token,
+              },
+            };
       if (me.$refs.formEmpresas.validate()) {
          let accion = me.empresa.id == null ? "add" : "upd";
         me.loader = true;
         if(accion=="add"){
           me.empresa["idusuario"] = this.$store.state.usuarioLog.id;
-           me.$http.post(`${me.$url}/empresas`, me.empresa)
+           me.$http.post(`${me.$url}/empresas`, me.empresa,header)
             .then(function(response) {
             me.verificarAccionDato(response.data, response.status, accion);
             
@@ -388,10 +371,8 @@ export default {
         }else{
             //para actualizar
              me.empresa["idusuario"] = this.$store.state.usuarioLog.id;
-            me.$http.put(`${me.$url}/empresas/`+ me.empresa.id,me.empresa)
+            me.$http.put(`${me.$url}/empresas/`+ me.empresa.id,me.empresa,header)
             .then(function(response) {
-              console.log(response.data);
-              console.log(response.status);
               me.verificarAccionDato(response.data, response.status, "upd");
                me.cerrarModal();
             })
@@ -409,7 +390,13 @@ export default {
         me.msjSnackBar = msj;
       },
       deleteEmpresas(empresa) {
-        let me = this;
+        let token = sessionStorage.getItem('tokenS');
+        let me = this,
+          header = {
+              headers: {
+                "Authorization": "Bearer "+ token,
+              },
+            };
         
         me.editedEmpresa = me.arrayEmpresas.indexOf(empresa);
          const Toast = me.$swal.mixin({
@@ -433,7 +420,7 @@ export default {
            if (result.value) {
              me.loader = true;
              me.$http
-              .delete(`${me.$url}/empresas/`+ empresa.id)
+              .delete(`${me.$url}/empresas/`+ empresa.id,header)
               .then(function(response){
                 
                 me.verificarAccionDato(response.data, response.status, "del");

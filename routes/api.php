@@ -44,10 +44,15 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::ApiResource("anio_graduacion","AnioGraduacionController");  
     Route::ApiResource("ofertas","OfertasController");
     Route::ApiResource("requisitos","RequisitoController");
+    Route::get("requisitosUpd","RequisitoController@find");
     Route::get('/ofertasr', 'OfertasController@find');
     Route::get('/ofertasw', 'OfertasController@findWork');
     Route::get('/ofertaswl', 'OfertasController@findworklist');
-    Route::put('/ofertas/{id}', 'OfertaController@update');
+    Route::delete('/ofertas/{id}', 'OfertaController@destroy');
+    
+    Route::put('/ofertasUpd/{id}', 'OfertasController@actualizar');
+    Route::post('/uploadImages', 'OfertasController@uploadImages');
+
    
     
 });

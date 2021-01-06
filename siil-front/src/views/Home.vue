@@ -46,7 +46,15 @@
               </v-list-item-content>
           
         </template>
-        <!--Menu de categoria-->
+        <v-list-item link :to="{path:'/formulario_perfil'}" ><!--menu de roles-->
+            <v-list-item-action>
+              <v-icon>picture_as_pdf</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Formulario Perfil Ocupacional</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        <!--Menu de categoria
 
         <v-list-item link :to="{path:'/ofertas'}">
               <v-list-item-action>
@@ -55,10 +63,10 @@
               <v-list-item-content>
                 <v-list-item-title>Ofertas de Empleo</v-list-item-title>
               </v-list-item-content>
-         </v-list-item>  
+         </v-list-item>  -->
             <!--MENU DE MARCAS-->
                  
-            <!--Menu de Producto--> 
+            <!--Menu de Producto
             <v-list-item link :to="{path: '#'}">
               <v-list-item-action>
                 <v-icon>mdi mdi-file-pdf</v-icon>
@@ -66,7 +74,7 @@
               <v-list-item-content>
                 <v-list-item-title>Descargar Formularios</v-list-item-title>
               </v-list-item-content>
-            </v-list-item> 
+            </v-list-item> --> 
         </v-list-group> 
              
 
@@ -100,7 +108,7 @@
                 <v-list-item-title>Empresas</v-list-item-title>
               </v-list-item-content>
             </v-list-item>      
-            <!--Menu de Producto--> 
+            <!--Menu de Producto
             <v-list-item link :to="{path:'/formulario_perfil'}">
               <v-list-item-action>
                 <v-icon>school</v-icon>
@@ -108,7 +116,7 @@
               <v-list-item-content>
                 <v-list-item-title>Formulario Registro Perfil</v-list-item-title>
               </v-list-item-content>
-            </v-list-item> 
+            </v-list-item> --> 
 
               <v-list-item link :to="{path:'/areas'}">
               <v-list-item-action>
@@ -153,8 +161,8 @@
             </v-list-item>
         </v-list-group>
         
-        <!--Menu de Repostes-->
-        <v-list-group v-show ="egresado == true"> <!--menu desplegable para reporte-->
+        <!--Menu de Repostes
+        <v-list-group v-show ="egresado == true"> 
           <template slot="activator">
                 <v-list-item-action>
                     <v-icon>library_books</v-icon>
@@ -163,7 +171,7 @@
                   <v-list-item-title>Formularios</v-list-item-title>
                 </v-list-item-content>
           </template>
-          <v-list-item link :to="{path:'/formulario_perfil'}" ><!--menu de roles-->
+          <v-list-item link :to="{path:'/formulario_perfil'}" >
             <v-list-item-action>
               <v-icon>picture_as_pdf</v-icon>
             </v-list-item-action>
@@ -179,7 +187,7 @@
               <v-list-item-title>Formularios Seguimiento a Graduado</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item link> <!-- MENU DE pedido anuilados-->
+          <v-list-item link>  MENU DE pedido anuilados
             <v-list-item-action>
               <v-icon>picture_as_pdf</v-icon>
             </v-list-item-action>
@@ -187,7 +195,7 @@
               <v-list-item-title>Formularios 3</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-        </v-list-group>
+        </v-list-group>-->
 
         <v-list-group v-show="show == true">
         <template slot="activator">
@@ -237,22 +245,17 @@
                 <v-icon>exit_to_app</v-icon>
               </v-list-item-action>
               <v-list-item-content style="margin-left:-20px">
-                <v-list-item-title><v-btn style="border:2px solid grey" @click="logout()">
-                 Cerrar Sesi&oacute;n</v-btn></v-list-item-title>
+                <v-list-item-title><v-btn style="border:2px solid white" color="primary" @click="logout()">
+                 Cerrar Sesion</v-btn></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           <!--<v-list-item class="mt-2 mb-2">
-              <v-list-item-action>
-                <v-list-item-content>
-                
-                <v-btn @click="logout()">
-                  
-                 <v-icon>exit_to_app</v-icon>&nbsp;Cerrar Session</v-btn>
-                  
-              </v-list-item-content>
-                
-              </v-list-item-action>
-             
+                <v-list-item-action>
+                  <v-list-item-content>
+                   <v-btn @click="logout()">
+                  <v-icon>exit_to_app</v-icon>&nbsp;Cerrar Session</v-btn>
+                  </v-list-item-content>              
+                </v-list-item-action>             
             </v-list-item>-->
       </template>
       </v-list>

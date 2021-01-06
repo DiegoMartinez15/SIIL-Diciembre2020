@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Oferta;
 use App\RequisitosOferta;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 
 class OfertasController extends Controller
@@ -15,12 +15,12 @@ class OfertasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $ofertas = Oferta::join('empresas','oferta.idempresa','=','empresas.id')
         ->join('areas','empresas.idarea','=','areas.id')
         ->join('usuarios','empresas.idusuario','=','usuarios.id')
-        ->select('oferta.id','oferta.cargo','oferta.salario','oferta.idrequisito','oferta.img','oferta.lugar_trabajo','oferta.vacante','oferta.contacto','empresas.nombre as idempresa','empresas.direccion as direccion','empresas.telefono as telefono'
+        ->select('oferta.id','oferta.cargo','oferta.salario','oferta.idrequisito','oferta.img','oferta.lugar_trabajo','oferta.vacante','oferta.contacto','empresas.nombre as idempresa','empresas.id as valueid','empresas.direccion as direccion','empresas.telefono as telefono'
         ,'empresas.encargado as encargado','areas.nombre as idarea','usuarios.nombres as usuario')
         ->where("estado","=","A")
         ->orderBy('id','DESC')->paginate(6);
@@ -47,6 +47,11 @@ class OfertasController extends Controller
         //
     }
 
+    public function update()
+    {
+        //
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -56,6 +61,7 @@ class OfertasController extends Controller
     public function store(Request $request)
     {
         $form = $request->all();
+       
      
         $imagen = $request->file('img');
         $nombre =time().'.'.$imagen->getClientOriginalExtension();
@@ -129,7 +135,7 @@ class OfertasController extends Controller
             $ofertas = Oferta::join('empresas', 'oferta.idempresa', '=', 'empresas.id')
                 ->join('areas', 'empresas.idarea', '=', 'areas.id')
                 ->join('usuarios', 'empresas.idusuario', '=', 'usuarios.id')
-                ->select('oferta.id', 'oferta.cargo', 'oferta.salario', 'oferta.idrequisito', 'oferta.img','oferta.lugar_trabajo','oferta.vacante','oferta.contacto', 'empresas.nombre as idempresa', 'empresas.direccion as direccion', 'empresas.telefono as telefono', 'empresas.encargado as encargado', 'areas.nombre as idarea', 'usuarios.nombres as usuario')
+                ->select('oferta.id', 'oferta.cargo', 'oferta.salario', 'oferta.idrequisito', 'oferta.img','oferta.lugar_trabajo','oferta.vacante','oferta.contacto','oferta.estado', 'empresas.nombre as idempresa','empresas.id as valueid', 'empresas.direccion as direccion', 'empresas.telefono as telefono', 'empresas.encargado as encargado', 'areas.nombre as idarea', 'usuarios.nombres as usuario')
                 
                 ->where("oferta.estado","=","A")
                 ->where("oferta.lugar_trabajo","=", $request->nombre)
@@ -155,17 +161,71 @@ class OfertasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
+    
 
     public function findWork(){
         $ofertas =Oferta::orderBy('id','DESC')
         ->select('oferta.id','oferta.lugar_trabajo')
+        ->where('oferta.estado','=','A')
         ->get();
         return $ofertas;
   
+    }
+    public function actualizar(Request $request){
+        try{
+            DB::beginTransaction();
+            $form = $request->all();
+            
+            
+                if ($form != null) {
+                    $oferta = Oferta::findOrfail($request->id);
+                    $oferta->cargo = $request->cargo;
+                    $oferta->img = $request->img;
+                    $oferta->salario = $request->salario;
+                    $oferta->vacante = $request->vacante;
+                    $oferta->idempresa  = $request->valueid;
+                    $oferta->contacto = $request->contacto;
+                    $oferta->lugar_trabajo = $request->lugar_trabajo;
+                    $oferta->save();
+                    
+                    $requisitos = RequisitosOferta::findOrfail($request->idrequisito);
+                    $requisitos->genero = $request->genero;
+                    $requisitos->edad = $request->edad;
+                    $requisitos->nivel_academico = $request->nivel_academico;
+                    $requisitos->horario = $request->horario;
+                    $requisitos->licencia = $request->licencia;
+                    $requisitos->experiencia = $request->experiencia;
+                    $requisitos->ambiente = $request->ambiente;
+                    $requisitos->comicion = $request->comicion;
+                    $requisitos->prestaciones = $request->prestaciones;
+                    $requisitos->conocimiento = $request->conocimiento;
+                    $requisitos->save();
+                    
+                }else{
+                    DB::rollBack();
+                    return response()->json([
+                        'res' => true,
+                        'message' => "No se Logro Actualizar la Oferta",
+                        
+                    ], 200);
+                }
+            
+            DB::commit(); 
+        }catch(Exception $e){
+            DB::rollBack();
+            return $e->getMessage();
+        }
+    }
+
+    //Metodo para subir Imagen al servidor y obtener el nombre
+    public function uploadImages(Request $request){
+        $imagen = $request->file('img');
+        
+        
+        $nombre =time().'.'.$imagen->getClientOriginalExtension();
+        $destino = public_path('../siil-front/public/ImgOfertas');
+        $request->img->move($destino,$nombre);
+        return $nombre;
     }
 
     /**
@@ -175,13 +235,7 @@ class OfertasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        $oferta =Oferta::findOrfail($id);
-        $oferta->estado = "I";        
-        $oferta->save();
-    }
-
+   
     /**
      * Remove the specified resource from storage.
      *
@@ -190,7 +244,8 @@ class OfertasController extends Controller
      */
     public function destroy($id)
     {
-        $oferta =Oferta::findOrfail($request->id);
+        $oferta =Oferta::findOrfail($id);
+       
         $oferta->estado = "I";        
         $oferta->save();
     }

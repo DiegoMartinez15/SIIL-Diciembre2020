@@ -398,7 +398,7 @@
                     <div class="flex-grow-1"></div>
                     <v-btn color="red darken-3" text @click="cerrarModal">Cerrar</v-btn>
                     <v-btn
-                      color="#814690"
+                      color="success"
                       :disabled="!valid"
                       @click="updateForm()"
                     >Enviar mi informacion </v-btn>
@@ -406,13 +406,13 @@
                 </v-card>
               </v-dialog>
             </v-toolbar>
-          </template>
+</template>
           <!--Template para la columna de acciones -->
           <template v-slot:item.action="{item}">
             <v-tooltip top>
               <template v-slot:activator="{on}">
                 <v-btn
-                  color="purple darken-3"
+                  color="primary"
                   elevation="8"
                   small
                   dark

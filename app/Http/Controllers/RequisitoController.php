@@ -34,8 +34,9 @@ class RequisitoController extends Controller
     }
 
     
-    public function maximo(){
-        $requisito =RequisitosOferta::max('id');
+    public function find(Request $request){
+        $requisito =RequisitosOferta::findOrfail($request->id);
+        
         return $requisito;
     }
  

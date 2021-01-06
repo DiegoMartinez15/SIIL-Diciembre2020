@@ -184,24 +184,53 @@
          :item-text="'genero'"
          :item-value="'genero'"></v-autocomplete>
         </v-col>
+       
 
         <v-col
           cols="12"
-          md="2"
+          md="4"
           style=" display:flex;margin: 0 10px;"
           
         >
+        <v-checkbox
+           
+           
+            v-model="showEdad"
+            label="Rango"
+            @click="!showEdad"
+          ></v-checkbox>
+        
+
+       
         <v-text-field
-        v-model="ofertas.edad"
+        class="ml-2"
+        v-model="MinEdad"
+        required
         :rules="[v => !!v || 'Este Campo es requerido']"
         hide-details
         single-line
         min="14"
-        
-        label="Edad "
+        label="Edad Minima "
         width="20"
         type="number"
         />
+        
+
+         <v-text-field
+         class="ml-4"
+         :disabled="showEdad == true"
+        v-model="MaxEdad"
+        hide-details
+        single-line
+        max="50"
+        label="Edad Maxima"
+        width="20"
+        type="number"
+        />
+       <!--Empesando pruebas de Rango de eda-->        
+        <!--Finalizando pruebas de Rango de eda-->
+
+
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
             <v-icon              
@@ -211,7 +240,7 @@
               info
             </v-icon>
           </template>
-          <span>Edad mínima para obtener el empleo</span>
+          <span>Edad mínima para obtener el empleo o rango de edad</span>
        </v-tooltip>
         </v-col>
         <v-col
@@ -332,6 +361,9 @@
   export default {
       data () {
       return {
+        showEdad: true,
+        MaxEdad: '',
+        MinEdad: '',
         files: '',
         imagenmin: '',
         errorsNombre:[],
@@ -464,14 +496,13 @@
 
       saveoferta() {
         
-        let token = sessionStorage.getItem('tokenS');
+      let token = sessionStorage.getItem('tokenS');
        let formData = new FormData();
        formData.append('img',this.ofertas.img);
        formData.append('cargo',this.ofertas.cargo);
        formData.append('genero',this.ofertas.genero);
        formData.append('nivel_academico',this.ofertas.nivel_academico);
        formData.append('horario',this.ofertas.horarios);
-       formData.append('edad',this.ofertas.edad);
        formData.append('experiencia',this.ofertas.experiencia);
        formData.append('conocimiento',this.ofertas.conocimiento);
        formData.append('licencia',this.ofertas.licencia);
@@ -485,8 +516,13 @@
        let user = this.$store.state.usuarioLog.id;
        formData.append('idusuario',user);
        formData.append('salario',this.ofertas.salario);
-
-      
+       let edad = "";
+      if (this.MaxEdad != ''){
+        edad = this.MinEdad+" a "+this.MaxEdad;
+      }else{
+        edad  = this.MinEdad;
+      }
+      formData.append('edad',edad);
        let me = this,
          header = {
               headers: {
@@ -497,24 +533,16 @@
       if (me.$refs.formOferta.validate()) {
         let accion = me.ofertas.id == null ? "add" : "upd";
         me.loader = true;
-        console.log(me.ofertas);
         if(accion=="add"){
            me.$http.post(`${me.$url}/ofertas`, formData,header)
             .then(function(response) {
               console.log(response.data);
             me.verificarAccionDato(response.data, response.status, accion);
             me.cerrarModal();
+            me.$router.push("/ofertas");
           })
           .catch(function(error) {
             console.log(error);
-            //409 Conflicts Error (Proveedor Ya Existente En la BD)
-            /*if (error.response.status == 409) {
-              me.setMessageToSnackBar("oferta Ya Existe", true);
-              me.errorsNombre = ["Nombre De oferta Existente"];
-            } else {
-              me.$swal("Error", "Ocurrio Un Error Intente Nuevamente", "error");
-            }
-            me.loader = false;*/
           });
         }else{
             //para actualizar
