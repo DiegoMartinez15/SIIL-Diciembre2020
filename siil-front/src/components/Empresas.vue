@@ -295,6 +295,7 @@
           </template>
           <span>Eliminar Registro</span>
         </v-tooltip>
+        &nbsp;&nbsp;
            <v-tooltip top>
           <template v-slot:activator="{on}">
             <v-btn

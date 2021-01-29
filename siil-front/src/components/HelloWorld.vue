@@ -105,7 +105,7 @@
                     <v-icon>groups</v-icon> &nbsp;<b>Cupos disponibles:&nbsp;&nbsp;</b><strong style="font-size: 15px;margin-rigth:2px">{{item.vacante}}</strong>
                     </v-card-subtitle>
 
-                    <v-card-subtitle style="font-size: 13px;">
+                    <v-card-subtitle style="font-size: 12px;">
                     <v-icon>business</v-icon> &nbsp;<b>Lugar de trabajo:&nbsp;&nbsp;</b>{{item.lugar_trabajo}}
                     </v-card-subtitle>
 
@@ -216,7 +216,7 @@
         <!-- Modal de Pollo Campero -->
        <section>
           <v-col cols="12" md="4">
-           <v-dialog v-model="dialog" persistent  width="540" >
+           <v-dialog v-model="dialog" persistent  width="560" >
            
             <v-card id="cardform1" v-for="(item, index) in datamodal" :key="index" >
               
@@ -234,7 +234,7 @@
                         >
                       </v-avatar>
                      </div>
-                      <div style="margin-left:10px;font-size:24px;">
+                      <div style="margin-left:10px;font-size:22px;">
                        Oferta de Empleo -&nbsp;{{item.idempresa}}
                       </div>
                    </v-card-title>
@@ -291,7 +291,7 @@
                 <v-col class="text-right " cols="6" sm="4" >
                   <!--<v-btn class="mr-2" @click="showModalUpd = false" color="success">Update</v-btn>-->
     
-                  <v-btn class="mr-2"  color="primary"><v-icon>touch_app</v-icon>Aplicar</v-btn>
+                  <v-btn @click="applyOffer(item.idoferta)" class="mr-2"  color="primary"><v-icon>touch_app</v-icon>Aplicar</v-btn>
 
                   </v-col>
                 </v-row>
@@ -840,6 +840,10 @@
                   experiencia:'',
                   conocimiento:'',
               },
+              data:{
+                idoferta: '',
+                idaspirante: '',
+              },
               pass: false,
               UploadImages: '',
                 showEdad: true,
@@ -923,6 +927,84 @@
       me.LoadModalUpd(me.ofertas.idrequisito);           
       me.modalUpd = true;      
     },
+    //Metodos de aplicar a oferta
+    applyOffer(id){
+      /*let hoy = new Date();
+      var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+      var fecha = hoy.getDate() + '-' + (meses[ hoy.getMonth()] ) + '-' + hoy.getFullYear();
+      console.log("Hola Amigos de youtube: " + fecha);
+      let array = [];
+      array = JSON.stringify(this.$store.state.usuarioLog);
+      console.log("Data User Active: "+ array);*/
+
+       let token = sessionStorage.getItem('tokenS');
+       let me = this,
+       header = {
+              headers: {
+                "Authorization": "Bearer "+ token,
+              },
+            };
+        me.$swal({
+           title: "Deseas Aplicar a esta oferta?",
+           text: "itcha see pondra en contacto con tigo por medio de su numero telefonico o correo",
+           icon: "info",
+           showCancelButton: true,
+           confirmButtonText: "Si",
+           cancelButtonText: "No",
+           reverseButtons: true,
+           focusConfirm: false,
+           focusCancel: true,
+           showCloseButton: true
+         }).then(result => {
+           if (result.value) {
+             me.loader = true;
+             me.data.idaspirante = me.$store.state.usuarioLog.id;
+             me.data.idoferta = id;
+             me.$http.post(`${me.$url}/ApplyOffer`,me.data,header)
+             .then(function(response) {
+                console.log(response.data);
+                let msg = response.data.msg;
+                switch (msg) {
+                    case "ya haz aplicado":
+                       me.$swal({
+                        title: "Ya haz aplicado a esta oferta!",
+                        text: "¡No se puede aplicar dos veces en una misma oferta!",
+                        icon: "info"
+                      });
+                      break;
+                   case "ya haz aplicado a esta oferta y se te dio respuesta":
+                       me.$swal({
+                        title: "Ya haz aplicado!",
+                        text: "¡Ya aplicastes y se dio una respuesta!",
+                        icon: "info"
+                      });
+                      break;
+                    case "No se pudo Aplicar a la oferta requerida":
+                       me.$swal({
+                        title: "Ocurrio Un error!",
+                        text: "¡Ocurrio un error intentando aplicar a esta oferta, Vuelve a intentarlo!",
+                        icon: "error"
+                      });
+                      break;
+                    case "Se Aplico correctamente":
+                       me.$swal({
+                        title: "Completado Exitosamente!",
+                        text: "¡Aplicastes Correctamente espera que los encargados se pongan en contacto con tigo!",
+                        icon: "success"
+                      });
+                      break;
+                  }       
+                me.loader = false;
+              })
+              .catch(function(error) {
+                console.log(error);
+                me.loader = false;
+              });
+           }
+         });
+
+    },
+    //Fin de Metodos para aplicar a la oferta
 
     //Metodos para cargar los requisitos para actualizar
     LoadModalUpd(id){
@@ -1427,7 +1509,7 @@
 
 #cardactions{
   height:145px;
-  padding-bottom: 2px;
+  padding-bottom: 3px;
   background: white;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
