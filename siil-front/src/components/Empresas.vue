@@ -138,14 +138,127 @@
                     ></v-btn>
                   </v-card-actions>
                 </v-card>
+              </v-dialog>        
+              <v-dialog v-model="modalInformacion" persistent max-width="700px">              
+                <v-card>
+                  <v-card-title class="headline grey lighten-2" primary-titles>    
+                    <h6>Informacion de Empresas</h6>              
+                    <span class="headline" name="Informacion"></span>
+                  </v-card-title>
+                  <v-card-text>
+                    
+                    <v-container>
+                      <v-form ref="formEmpresas" v-model="validForm" >
+
+              <v-row >
+              <v-col
+              class="font-weight-black"
+                cols="12"
+                sm="6"
+                md="4"
+              >
+                <v-text-field
+                  v-model="empresa.nombre"
+                   label="Nombre"
+                   disabled
+                ></v-text-field>
+              </v-col>
+              <v-col
+              class="font-weight-black"
+                cols="12"
+                sm="8"
+                md="4"
+              >
+                <v-text-field
+                  v-model="empresa.encargado"
+                          label="Encargado"
+                          disabled
+                ></v-text-field>
+              </v-col>
+              <v-col
+              class="font-weight-black"
+                cols="12"
+                sm="6"
+                md="4"
+              >
+                <v-text-field
+                   v-model="empresa.telefono"
+                          :rules="phoneRules"
+                          label="Teléfono"
+                          disabled
+                          maxlength="8"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" class="font-weight-black">
+                <v-text-field
+                  v-model="empresa.direccion"
+                          :rules="[v => !!v || 'La Dirección Es Requerida']"
+                          label="Dirección"
+                          disabled
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" class="font-weight-black">
+                <v-text-field
+                  v-model="empresa.correo"
+                          :rules="emailRules"
+                          label="Correo"
+                          disabled
+                ></v-text-field>
+              </v-col>
+              <v-col
+              class="font-weight-black"
+                cols="12"
+                sm="6"
+              >
+                <v-text-field
+                          
+                          v-model="empresa.telencargado"                         
+                          :rules="phoneRules"
+                          label="Tel.Encargado"
+                          disabled                                             
+                        ></v-text-field> 
+
+              </v-col>
+              
+              <v-col
+              
+              class="font-weight-black"
+                cols="12"
+                sm="6"
+              >
+              
+                <v-text-field
+                        
+                        v-model="empresa.idarea"
+                        label="Área"
+                         :rules="[v => !!v || 'Este Campor es requerido']"
+                        :items="listarea"
+                        :item-text="'nombre'"
+                        :item-value="'id'"  
+                        disabled                 
+                      ></v-text-field>       
+              </v-col>
+            </v-row>                           
+                      </v-form>
+                      
+                    </v-container>
+                  </v-card-text>
+                  <v-divider></v-divider>
+                  <v-card-actions>
+                    <div class="flex-grow-1"></div>
+                    <v-btn color="red darken-1" text @click="cerrarInfo">Cerrar</v-btn>                  
+                  </v-card-actions>
+                </v-card>
               </v-dialog>
             </v-toolbar>
 </template>
+     
+           
 
        
           <!-- Template que va en la tabla en la columna de Acciones (Editar,Desactivar) -->
 
-         <template v-slot:item.action="{item}">
+      <template v-slot:item.action="{item}">
         <v-tooltip top>
           <template v-slot:activator="{on}">
             <v-btn
@@ -182,6 +295,25 @@
           </template>
           <span>Eliminar Registro</span>
         </v-tooltip>
+        &nbsp;&nbsp;
+           <v-tooltip top>
+          <template v-slot:activator="{on}">
+            <v-btn
+              color="delete"            
+              elevation="8"
+              small
+              fab
+              dark
+              :disabled="item.id<0"
+              v-on="on"
+              @click="showModalInformacion(item)"
+            >
+            <v-icon>info</v-icon>
+            </v-btn>
+          </template>
+          <span>Informacion</span>
+        </v-tooltip>
+        &nbsp;&nbsp;
       </template>
         </v-data-table>
       </v-card>
@@ -196,16 +328,14 @@ export default {
       hTBEmpresas: [
         { text: "Nombre", value: "nombre", class:'blue-grey lighten-4 ' },
         { text: "Dirección", value: "direccion" , class:'blue-grey lighten-4 '},
-        { text: "Teléfono", value: "telefono", class:'blue-grey lighten-4 ' },
-        { text: "Encargado", value: "encargado" , class:'blue-grey lighten-4 '},
-        { text: "Correo", value: "correo" , class:'blue-grey lighten-4 '},
-        { text: "Tel.Encargado", value: "telencargado" , class:'blue-grey lighten-4 '},
+        { text: "Correo", value: "correo" , class:'blue-grey lighten-4 '},     
         { text: "Área", value: "idarea", class:'blue-grey lighten-4 ' },
         { text: "Acciones", value: "action", sortable: false, align: "center", class:'blue-grey lighten-4 ' }
       ],
       loader: false,
       searchEmpresa: "",
       modalEmpresa: false,
+      modalInformacion: false,
       listcoordinadores:[],
       listarea:[],
       empresa: {
@@ -226,7 +356,7 @@ export default {
       errorsNombre: [],
       editedEmpresa: 0,
       phoneRules: [
-        v => /^([0-9])*$/.test(v) || 'Formato no valido',
+        v => /^([0-9]{8})*$/.test(v) || 'Formato no valido',
       ],
       emailRules: [ 
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail invalido'
@@ -238,10 +368,12 @@ export default {
       formTitle(){
         return this.empresa.id == null
         ? "Agregar Empresa"
-        : "Actualizar Empresa";
+        : "Actualizar Empresa"
+       
       },
+      
       btnTitle(){
-        return this.empresa.id == null ? "Guardar" : "Actualizar";
+        return this.empresa.id == null ? "Guardar" : "Actualizar" ; 
       },
     },
     
@@ -326,6 +458,23 @@ export default {
           me.resetValidation();
         }, 300);
       },
+      cerrarInfo(){
+        let me = this;
+        me.modalInformacion = false;
+        setTimeout(() => {
+          me.empresa = {
+            id:null,
+              nombre: "",
+                direccion:"",
+                telefono:"",
+                correo:"",
+                telencargado:"",
+                idarea: "",
+                idusuario: ""
+          };
+          me.resetValidation();
+        }, 300);
+      },
       resetValidation() {
         let me = this;
         me.errorsNombre = [];
@@ -337,7 +486,48 @@ export default {
         me.empresa = Object.assign({},empresa);
         me.modalEmpresa = true;
       },
-     
+      showModalInformacion(empresa) {
+        let me = this;
+        me.empresa = Object.assign({},empresa);
+        me.modalInformacion = true;
+      },
+      /*saveAreas() {
+        let me = this;
+       
+        if(me.$refs.formAreas.validate()) {
+          let accion = me.areas.id == null ? "add" : "upd";
+          me.loader = true;
+          me.$http
+            .post(`${me.$url}/areas`, me.areas)
+            .then(function(response) {
+              me.verificarAccionDato(response.data, response.status, accion);
+              me.cerrarModal();
+            })
+            .catch(function(error) {
+              console.log(error);
+              //409 conflicts Error (Proveedor ya existe en la base de datos)
+              if(error.response.status == 409) {
+                me.setMessageToSnackBar("Areas Ya Existente", true);
+                me.errorsNombre = ["Nombre de la Areas ya Existente"];
+              }else {
+                me.$swal("Error", "Ocurrido Un Error Intente de Nuevovamente", "error");
+              }
+              me.loader = false;
+            });
+            }else{
+            //para actualizar
+            me.$http.put('/areas/'+me.area.id, me.area)
+               .then(function(response) {
+                   console.log(response.data);
+                    me.verificarAccionDato(response.data, response.status, "upd");
+                    me.cerrarModal();
+            })
+          .catch(function(error) {
+            console.log(error);
+            me.loader = false;
+          });
+        }
+      },*/
       saveEmpresa() {
         let token = sessionStorage.getItem('tokenS');
       let me = this,
@@ -440,14 +630,12 @@ export default {
       },
       verificarAccionDato(areas, statusCode, accion) {
         let me = this;
-
         const Toast = me.$swal.mixin({
           toast: true,
           position: "bottom-end",
           showConfirmButton: true,
           timer: 3000
         });
-
         switch (accion) {
           case "add":
             //Agrego al array de categorias el objeto que devuelve el backend
@@ -459,7 +647,6 @@ export default {
             });
             me.loader = false;
             break;
-
           case "upd":
             //Actualizando al array de categorias el objeto que devuelve el Backend ya con los datos
             //Object.assign(me.arrayAreas[me.editedAreas], areas);
@@ -489,7 +676,6 @@ export default {
             break;
         }
       },
-
     },
     mounted() {
        

@@ -53,7 +53,7 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::put('/ofertasUpd/{id}', 'OfertasController@actualizar');
     Route::post('/uploadImages', 'OfertasController@uploadImages');
 
-   
+    Route::ApiResource("ApplyOffer","Aplicada_ofertasController");
     
 });
 /* FIN de Group */

@@ -14,7 +14,7 @@ export default new Vuex.Store({
         role: '',
         idaspirante: '',
         usuarioLog:[],
-        avatar:'',
+        F:'',
 
     },
     getters: {

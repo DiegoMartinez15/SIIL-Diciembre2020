@@ -12,6 +12,7 @@ import AddBussiness from '../components/AddBussiness.vue'
 import FormAccept from '../components/FormAccept.vue'
 import FormPerfil from '../components/FormularioPerfil.vue'
 import FormSeguimiento from '../components/FormularioSeguimiento.vue'
+import listaAplicados from '../components/listaAplicados.vue'
 
 Vue.use(VueRouter)
 
@@ -60,6 +61,12 @@ const routes = [{
                 path: '/formulario_seguimiento',
                 name: 'formulario-seguimiento',
                 component: FormSeguimiento,
+            },
+            {
+                path: '/aplicados',
+                name: 'listaAplicados',
+                component: listaAplicados,
+                meta: { requiresAuth: true }
             },
 
         ]

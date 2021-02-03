@@ -135,6 +135,15 @@
                 <v-list-item-title>Reportes</v-list-item-title>
               </v-list-item-content>
             </v-list-item> 
+            <v-list-item link :to="{path:'/aplicados'}">
+              <v-list-item-action>
+                <v-icon>
+                how_to_reg</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>aplicados</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item> 
             
 
 

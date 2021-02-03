@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\AnioGraduacion' => $baseDir . '/app/AnioGraduacion.php',
     'App\\Area' => $baseDir . '/app/Area.php',
     'App\\Areas' => $baseDir . '/app/Areas.php',
     'App\\Aspirante' => $baseDir . '/app/Aspirante.php',
@@ -17,12 +18,11 @@ return array(
     'App\\Departamentos' => $baseDir . '/app/Departamentos.php',
     'App\\Egresados' => $baseDir . '/app/Egresados.php',
     'App\\Empresa' => $baseDir . '/app/Empresa.php',
-    'App\\EnfermedadesCronicas' => $baseDir . '/app/EnfermedadesCronicas.php',
-    'App\\EstadosCiviles' => $baseDir . '/app/EstadosCiviles.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\FormAccept' => $baseDir . '/app/FormAccept.php',
     'App\\FormularioPerfiles' => $baseDir . '/app/FormularioPerfiles.php',
     'App\\FormularioSeguimiento' => $baseDir . '/app/FormularioSeguimiento.php',
+    'App\\Http\\Controllers\\AnioGraduacionController' => $baseDir . '/app/Http/Controllers/AnioGraduacionController.php',
     'App\\Http\\Controllers\\AreaController' => $baseDir . '/app/Http/Controllers/AreaController.php',
     'App\\Http\\Controllers\\AreasController' => $baseDir . '/app/Http/Controllers/AreasController.php',
     'App\\Http\\Controllers\\AspiranteController' => $baseDir . '/app/Http/Controllers/AspiranteController.php',
@@ -32,6 +32,7 @@ return array(
     'App\\Http\\Controllers\\Auth\\RegisterController' => $baseDir . '/app/Http/Controllers/Auth/RegisterController.php',
     'App\\Http\\Controllers\\Auth\\ResetPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ResetPasswordController.php',
     'App\\Http\\Controllers\\Auth\\VerificationController' => $baseDir . '/app/Http/Controllers/Auth/VerificationController.php',
+    'App\\Http\\Controllers\\CarreraController' => $baseDir . '/app/Http/Controllers/CarreraController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\CoordinadorController' => $baseDir . '/app/Http/Controllers/CoordinadorController.php',
     'App\\Http\\Controllers\\EgresadoController' => $baseDir . '/app/Http/Controllers/EgresadoController.php',
@@ -44,6 +45,7 @@ return array(
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\LogoutsController' => $baseDir . '/app/Http/Controllers/LogoutsController.php',
     'App\\Http\\Controllers\\OfertaController' => $baseDir . '/app/Http/Controllers/OfertaController.php',
+    'App\\Http\\Controllers\\OfertasController' => $baseDir . '/app/Http/Controllers/OfertasController.php',
     'App\\Http\\Controllers\\RequisitoController' => $baseDir . '/app/Http/Controllers/RequisitoController.php',
     'App\\Http\\Controllers\\SegundoIdiomaController' => $baseDir . '/app/Http/Controllers/SegundoIdiomaController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',

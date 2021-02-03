@@ -552,6 +552,7 @@ class ComposerStaticInit546b95f3d4d430eaf738dac045a3a7c2
     );
 
     public static $classMap = array (
+        'App\\AnioGraduacion' => __DIR__ . '/../..' . '/app/AnioGraduacion.php',
         'App\\Area' => __DIR__ . '/../..' . '/app/Area.php',
         'App\\Areas' => __DIR__ . '/../..' . '/app/Areas.php',
         'App\\Aspirante' => __DIR__ . '/../..' . '/app/Aspirante.php',
@@ -563,12 +564,11 @@ class ComposerStaticInit546b95f3d4d430eaf738dac045a3a7c2
         'App\\Departamentos' => __DIR__ . '/../..' . '/app/Departamentos.php',
         'App\\Egresados' => __DIR__ . '/../..' . '/app/Egresados.php',
         'App\\Empresa' => __DIR__ . '/../..' . '/app/Empresa.php',
-        'App\\EnfermedadesCronicas' => __DIR__ . '/../..' . '/app/EnfermedadesCronicas.php',
-        'App\\EstadosCiviles' => __DIR__ . '/../..' . '/app/EstadosCiviles.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\FormAccept' => __DIR__ . '/../..' . '/app/FormAccept.php',
         'App\\FormularioPerfiles' => __DIR__ . '/../..' . '/app/FormularioPerfiles.php',
         'App\\FormularioSeguimiento' => __DIR__ . '/../..' . '/app/FormularioSeguimiento.php',
+        'App\\Http\\Controllers\\AnioGraduacionController' => __DIR__ . '/../..' . '/app/Http/Controllers/AnioGraduacionController.php',
         'App\\Http\\Controllers\\AreaController' => __DIR__ . '/../..' . '/app/Http/Controllers/AreaController.php',
         'App\\Http\\Controllers\\AreasController' => __DIR__ . '/../..' . '/app/Http/Controllers/AreasController.php',
         'App\\Http\\Controllers\\AspiranteController' => __DIR__ . '/../..' . '/app/Http/Controllers/AspiranteController.php',
@@ -578,6 +578,7 @@ class ComposerStaticInit546b95f3d4d430eaf738dac045a3a7c2
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
+        'App\\Http\\Controllers\\CarreraController' => __DIR__ . '/../..' . '/app/Http/Controllers/CarreraController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\CoordinadorController' => __DIR__ . '/../..' . '/app/Http/Controllers/CoordinadorController.php',
         'App\\Http\\Controllers\\EgresadoController' => __DIR__ . '/../..' . '/app/Http/Controllers/EgresadoController.php',
@@ -590,6 +591,7 @@ class ComposerStaticInit546b95f3d4d430eaf738dac045a3a7c2
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\LogoutsController' => __DIR__ . '/../..' . '/app/Http/Controllers/LogoutsController.php',
         'App\\Http\\Controllers\\OfertaController' => __DIR__ . '/../..' . '/app/Http/Controllers/OfertaController.php',
+        'App\\Http\\Controllers\\OfertasController' => __DIR__ . '/../..' . '/app/Http/Controllers/OfertasController.php',
         'App\\Http\\Controllers\\RequisitoController' => __DIR__ . '/../..' . '/app/Http/Controllers/RequisitoController.php',
         'App\\Http\\Controllers\\SegundoIdiomaController' => __DIR__ . '/../..' . '/app/Http/Controllers/SegundoIdiomaController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
