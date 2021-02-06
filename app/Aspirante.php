@@ -15,4 +15,8 @@ class Aspirante extends Model
     public function perfil(){
         return $this->hasMany('App/FormularioPerfiles');
     }
+
+    public function aplicar(){
+        return $this->hasMany('App/Aplicadas_ofertas');
+    }
 }

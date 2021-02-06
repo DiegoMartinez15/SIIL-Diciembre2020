@@ -21,3 +21,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post("/perfil","FormularioPerfilController@store"); 
 Route::post("perfil/save","FormularioPerfilController@create");  
 
+Route::get('enviar',function(){
+    $data = [
+      'link' => 'https://jesuschicano.es'
+    ];
+    \Mail::send('emails.notificacion', $data, function($msg){
+       $msg->from('jesus@shivaweb.es', 'Jesús chicano');
+     $msg->to('user@example.com')->subject('Notificación');
+    });
+ }
+);
+

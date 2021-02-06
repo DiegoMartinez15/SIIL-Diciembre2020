@@ -963,6 +963,7 @@
              me.$http.post(`${me.$url}/ApplyOffer`,me.data,header)
              .then(function(response) {
                 console.log(response.data);
+                console.log(response.data.var);
                 let msg = response.data.msg;
                 switch (msg) {
                     case "ya haz aplicado":

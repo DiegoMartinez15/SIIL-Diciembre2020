@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use DB;
 use App\Oferta;
 use App\Aspirante;
 use App\Aplicadas_ofertas;
-use DB;
+use Illuminate\Http\Request;
+use App\Mail\MessageReceived;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class Aplicada_ofertasController extends Controller
 {
@@ -26,7 +28,7 @@ class Aplicada_ofertasController extends Controller
         ->select('aplicadas_ofertas.id', 'aplicadas_ofertas.estado', 'aspirantes.nombres as nombres','aspirantes.apellidos as apellidos',
         'aspirantes.codigo as codigo', 'aspirantes.telefono as telefono','oferta.cargo as cargo','empresas.nombre as empresa','oferta.lugar_trabajo as lugardesarrollo')
         ->where('aplicadas_ofertas.estado','A')
-        ->orderBy('nombres','DESC')
+        ->orderBy('nombres','ASC')
         ->get();
 
             
@@ -43,6 +45,17 @@ class Aplicada_ofertasController extends Controller
     {
         //
     }
+
+    public function toMail($notifiable)
+{
+    $url = url('/invoice/'.$this->invoice->id);
+
+    return (new MailMessage)
+                ->greeting('Hello!')
+                ->line('One of your invoices has been paid!')
+                ->action('View Invoice', $url)
+                ->line('Thank you for using our application!');
+}
 
     /**
      * Store a newly created resource in storage.
@@ -88,10 +101,18 @@ class Aplicada_ofertasController extends Controller
                             $applyOffer->save();
 
                             //falta enviar la notificacion al correo del admin
-
+                            $aspirante =Aspirante::findOrfail($request->idaspirante);
+                            $email = "{$aspirante->codigo}@itcha.edu.sv";
+                            $message['names'] = $aspirante->nombres;
+                            $message['lastNames'] = $aspirante->apellidos;
+                            $message['email'] = $email;
+                            $message['content']= 'Estoy intentando aplicar y conocer mas sobre la vacante';
+                          
+                            Mail::to('cv19001@itcha.edu.sv')->send(new MessageReceived($message));
                             return response()->json([
-                                'res' => true,
-                                'msg' => "Se Aplico correctamente",
+                             'res' => true,
+                             'msg' => "Se Aplico correctamente",
+                             'var' => $aspirante
                             ],200);
                         }else{
                             //ya aplico solo mandamos el mensaje
