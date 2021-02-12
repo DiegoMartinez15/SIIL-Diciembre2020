@@ -127,7 +127,7 @@
                       id="btncard" 
                       elevation="10" 
                       color="blue darken-1"
-                       dark class="mb-2" 
+                       dark class="mb-2 mt-3" 
                         v-on="on">
                         Informacion&nbsp;
                         <v-icon>info</v-icon>
@@ -946,7 +946,7 @@
             };
         me.$swal({
            title: "Deseas Aplicar a esta oferta?",
-           text: "itcha see pondra en contacto con tigo por medio de su numero telefonico o correo",
+           text: "Itcha se pondra en contacto con tigo por medio de tu numero telefonico o correo",
            icon: "info",
            showCancelButton: true,
            confirmButtonText: "Si",
@@ -962,8 +962,6 @@
              me.data.idoferta = id;
              me.$http.post(`${me.$url}/ApplyOffer`,me.data,header)
              .then(function(response) {
-                console.log(response.data);
-                console.log(response.data.var);
                 let msg = response.data.msg;
                 switch (msg) {
                     case "ya haz aplicado":
@@ -995,10 +993,11 @@
                       });
                       break;
                   }       
+                  
                 me.loader = false;
               })
               .catch(function(error) {
-                console.log(error);
+                console.lo(error);
                 me.loader = false;
               });
            }
@@ -1283,10 +1282,10 @@
                me.pagination = response.data.pagination;
                if(response.data.pagination == null){
                 me.items = response.data;
-                console.log(me.items);
+                
                }else{                 
                   me.items = response.data.ofertas.data;
-                  console.log(me.items);
+                  
                }            
                if(me.items.length > 0){
                 me.mostar = true;
@@ -1346,7 +1345,7 @@
         me.$http.get(`${me.$url}/requisitos?id=`+me.id,header)
         .then(function(response) {
           me.datamodal = response.data;
-          console.log(me.datamodal);
+          
             if(me.datamodal != ""){
               me.dialog = true;
             }else{
@@ -1394,6 +1393,7 @@
               })
               .catch(function(error) {
                 console.log(error);
+                
                 me.loader = false;
               });
            }
@@ -1446,14 +1446,13 @@
   
      ObtenerImagen(e){
           let file = e.target.files[0];
-          console.log(file);
           
-          console.log(typeof(file));
           if(file != undefined){
             this.ofertas.img = file;
             this.cargarImagen(file)
           }else{
-            console.log("No se seleciono imagen");
+            console.log("no selecciono imagen");
+            
           }
        
       },

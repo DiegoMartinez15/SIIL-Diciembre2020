@@ -41,6 +41,7 @@
                       fab
                       dark
                       :disabled="item.id<0"
+                       @click="dispatchoffer(item)"
                       v-on="on"
                       
                     >
@@ -242,6 +243,56 @@ export default {
         let name2 = me.applyoffer.apellidos.split(' ');
         me.applyoffer.NameIn = name[0].toUpperCase()+" "+name2[0].toUpperCase();
         me.modalApply = true;
+      },
+
+       dispatchoffer(offer){
+         let me = this;
+         const Toast = me.$swal.mixin({
+           toast: true,
+           position: "bottom-end",
+           showConfirmButton: true,
+           timer: 3000
+         });
+         me.$swal({
+           title: "Despachar Solicitud?",
+           text: "Esta accion despachara la solictud del aplicado y se marcara como atendida",
+           icon: "question",
+           showCancelButton: true,
+           confirmButtonText: "Si",
+           cancelButtonText: "No",
+           reverseButtons: true,
+           focusConfirm: false,
+           focusCancel: true,
+           showCloseButton: true
+         }).then(result => {
+           if (result.value) {
+             me.loader = true;
+             me.$http
+              .put(`${me.$url}/ApplyOffer/`+ offer.id,offer)
+              .then(function(response){
+                if(response.status == 200){
+                  Toast.fire({
+                    icon: "success",
+                    title: "solicitud atentidad exitosamente"
+                  });
+                  setTimeout(() => {
+                    
+                    me.$router.go();
+                  }, 300);
+                }
+                me.loader = false;
+              })
+              .catch(function(error) {
+                if(error.response.status == 510){
+                  Toast.fire({
+                    icon: "error",
+                    title: "No se puede despachar esta solicitud"
+                  });
+                }
+                me.loader = false;
+              });
+           }
+         });
       },
 
     },
