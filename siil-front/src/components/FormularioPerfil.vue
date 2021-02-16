@@ -1280,15 +1280,17 @@
               
               me.$http.post(`${me.$url}/perfil`, me.formulario, header)
                 .then(function(response) {
-                  if(response.status == 200){
+                  console.log(response.data);
+                  console.log(response.data.msg);
+                  if(response.data.msg == undefined){
                     me.loader = true;
                   Toast.fire(
-                  'Enviada Correctamente!',
-                  'Tu información ha sido enviada con éxito',
-                  'success'
+                  'Ocurrio un error !',
+                  'Tu información ',
+                  'error'
                   );
                   me.loader = false;
-                  me.$router.push('/ofertas')
+                  
                   }
                
               })

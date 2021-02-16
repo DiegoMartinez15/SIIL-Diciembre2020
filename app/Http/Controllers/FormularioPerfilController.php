@@ -35,54 +35,107 @@ class FormularioPerfilController extends Controller
     public function store(Request $request)
     { 
         try{
-            DB::beginTransaction();
-            $perfil = new FormularioPerfiles();
-            $perfil->id_aspirante = $request->id_aspirante;
-            $perfil->id_egresado = $request->id_egresado;
-            $perfil->id_carrera = $request->id_carrera;
-            $perfil->lugar_nac = $request->lugar_nac;
-            $perfil->celular2 = $request->celular2;
-            $perfil->estado_civil = $request->estado_civil;
-            $perfil->nit = $request->nit;
-            $perfil->pasaporte = $request->pasaporte;
-            $perfil->licencia_conducir = $request->licencia_conducir;
-            $perfil->nup = $request->nup;
-            $perfil->idsegundo_idioma = $request->idsegundo_idioma;
-            $perfil->nivel_idioma = $request->nivel_idioma;
-            $perfil->nacionalidad = $request->nacionalidad;
-            $perfil->enfermedad_cronica = $request->enfermedad_cronica;
-            $perfil->enfermadad_mencion = $request->enfermadad_mencion;
-            $perfil->medicamento_perma = $request->medicamento_perma;
-            $perfil->medicamento_mencion = $request->medicamento_mencion;
-            $perfil->discapacidad = $request->discapacidad;
-            $perfil->nivel_academico = $request->nivel_academico;
-            $perfil->institucion_formadora = $request->institucion_formadora;
-            $perfil->id_anio_graduacion = $request->id_anio_graduacion;
-            $perfil->cursos_informacion = $request->cursos_informacion;
-            $perfil->oficios_realizar = $request->oficios_realizar;
-            $perfil->formacion_emprende = $request->formacion_emprende;
-            $perfil->idea_negocio = $request->idea_negocio;
-            $perfil->instituto_formador_emprede = $request->instituto_formador_emprede;
-            $perfil->anio_formacion = $request->anio_formacion;
-            $perfil->experiencia_laboral = $request->experecia_laboral;
-            $perfil->ultimo_periodo_trabajo = $request->ultimo_periodo_trabajo;
-            $perfil->cargo_desempenado = $request->cargo_desempenado;
-            $perfil->habilidades_personales = $request->habilidades_personales;
-            $perfil->dificultades_personales = $request->dificultades_personales;
-            $perfil->disponibilidad_horaria = $request->disponibilidad_horaria;
-            $perfil->recomendacion_derivacion = $request->recomendacion_derivacion;
-            $perfil->otra_observacion = $request->otra_observacion;
-            $perfil->save();
+            $nit = FormularioPerfiles::where("nit","=",$request->nit)->get();
+            $nup = FormularioPerfiles::where("nup","=",$request->nup)->get();
+            $pasaporte = FormularioPerfiles::where("pasaporte","=",$request->pasaporte)->get();
+            $licencia_conducir = FormularioPerfiles::where("licencia_conducir","=",$request->licencia_conducir)->get();
+            $lenNit = sizeof($nit);
+            $lenNup = sizeof($nup);
+            $lenPas = sizeof($pasaporte);
+            $lenLic = sizeof($licencia_conducir);
 
-            $aspirante =  Aspirante::findOrFail($id= $perfil->id_aspirante);
-            $aspirante->formulario_perfil = 'Si';
-            $aspirante->save();
+            /*return response()->json([
+                'res' => false,
+                
+                'len' => $lenNit,
+                'len1' => $lenNup,
+                'len2' => $lenPas,
+                'len3' => $lenLic,
+            ],200);*/
+            
+
+            //$lenNiit es 0
+            if($lenNit == 0){
+               if($lenNup == 0){
+                    if($lenPas == 0){
+                        if($lenLic == 0){
+                           
+                              /*Codigo de guarda */
+                           DB::beginTransaction();
+                           $perfil = new FormularioPerfiles();
+                           $perfil->id_aspirante = $request->id_aspirante;
+                           $perfil->id_egresado = $request->id_egresado;
+                           $perfil->id_carrera = $request->id_carrera;
+                           $perfil->lugar_nac = $request->lugar_nac;
+                           $perfil->celular2 = $request->celular2;
+                           $perfil->estado_civil = $request->estado_civil;
+                           $perfil->nit = $request->nit;
+                           $perfil->pasaporte = $request->pasaporte;
+                           $perfil->licencia_conducir = $request->licencia_conducir;
+                           $perfil->nup = $request->nup;
+                           $perfil->idsegundo_idioma = $request->idsegundo_idioma;
+                           $perfil->nivel_idioma = $request->nivel_idioma;
+                           $perfil->nacionalidad = $request->nacionalidad;
+                           $perfil->enfermedad_cronica = $request->enfermedad_cronica;
+                           $perfil->enfermadad_mencion = $request->enfermadad_mencion;
+                           $perfil->medicamento_perma = $request->medicamento_perma;
+                           $perfil->medicamento_mencion = $request->medicamento_mencion;
+                           $perfil->discapacidad = $request->discapacidad;
+                           $perfil->nivel_academico = $request->nivel_academico;
+                           $perfil->institucion_formadora = $request->institucion_formadora;
+                           $perfil->id_anio_graduacion = $request->id_anio_graduacion;
+                           $perfil->cursos_informacion = $request->cursos_informacion;
+                           $perfil->oficios_realizar = $request->oficios_realizar;
+                           $perfil->formacion_emprende = $request->formacion_emprende;
+                           $perfil->idea_negocio = $request->idea_negocio;
+                           $perfil->instituto_formador_emprede = $request->instituto_formador_emprede;
+                           $perfil->anio_formacion = $request->anio_formacion;
+                           $perfil->experiencia_laboral = $request->experecia_laboral;
+                           $perfil->ultimo_periodo_trabajo = $request->ultimo_periodo_trabajo;
+                           $perfil->cargo_desempenado = $request->cargo_desempenado;
+                           $perfil->habilidades_personales = $request->habilidades_personales;
+                           $perfil->dificultades_personales = $request->dificultades_personales;
+                           $perfil->disponibilidad_horaria = $request->disponibilidad_horaria;
+                           $perfil->recomendacion_derivacion = $request->recomendacion_derivacion;
+                           $perfil->otra_observacion = $request->otra_observacion;
+                           $perfil->save();
+               
+                           $aspirante =  Aspirante::findOrFail($id= $perfil->id_aspirante);
+                           $aspirante->formulario_perfil = 'Si';
+                           $aspirante->save();
+                           
+                        }else{
+                            return response()->json([
+                                'res' => false,
+                                'msg' =>"si viene licencia",
+                            ],200);
+                        }
+                    }else{
+                        return response()->json([
+                            'res' => false,
+                            'msg' =>"si viene pas",
+                        ],200);
+                    }
+               }else{
+                    return response()->json([
+                        'res' => false,
+                        'msg' =>"si viene nup ",
+                    ],200);
+               }
+                
+            }else{
+                return response()->json([
+                'res' => false,
+                'msg' =>"si viene nit ",
+            ],200);
+                
+            }
+            
 
         }catch(\Exception $e){
             DB::rollBack();
             return $e->getMessage();
         }
-       
     }
 
    

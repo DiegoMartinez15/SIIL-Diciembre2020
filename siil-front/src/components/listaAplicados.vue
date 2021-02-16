@@ -30,7 +30,6 @@
                 multi-sort
                 class="elevation-3 text--center"
                 >
-  
               <template v-slot:item.action="{item}">
                 <v-tooltip top>
                   <template v-slot:activator="{on}">

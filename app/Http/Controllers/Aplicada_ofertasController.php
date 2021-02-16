@@ -97,10 +97,10 @@ class Aplicada_ofertasController extends Controller
                             $message['names'] = $aspirante->nombres;
                             $message['lastNames'] = $aspirante->apellidos;
                             $message['email'] = $email;
-                            $message['content']= 'Estoy intentando aplicar y conocer mas sobre la vacante ';
+                            $message['content']= 'Estoy intentando aplicar y conocer mas sobre la vacante';
                             $message['bye'] = 'Espero su pronta respuesta de antemano gracias';
                           
-                            Mail::to('SistemaInformaticoSIIL@gmail.com')->send(new MessageReceived($message));
+                            Mail::to('mg19003@itcha.edu.sv')->send(new MessageReceived($message));
                             return response()->json([
                              'res' => true,
                              'msg' => "Se Aplico correctamente",
