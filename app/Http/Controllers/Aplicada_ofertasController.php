@@ -27,7 +27,7 @@ class Aplicada_ofertasController extends Controller
 
         ->select('aplicadas_ofertas.id', 'aplicadas_ofertas.estado', 'aspirantes.nombres as nombres','aspirantes.apellidos as apellidos',
         'aspirantes.codigo as codigo', 'aspirantes.telefono as telefono','oferta.cargo as cargo','empresas.nombre as empresa','oferta.lugar_trabajo as lugardesarrollo')
-        ->where('aplicadas_ofertas.estado','A')
+        ->where('aplicadas_ofertas.estado','=','A')
         ->orderBy('nombres','ASC')
         ->get();
 
@@ -46,16 +46,7 @@ class Aplicada_ofertasController extends Controller
         //
     }
 
-    public function toMail($notifiable)
-{
-    $url = url('/invoice/'.$this->invoice->id);
 
-    return (new MailMessage)
-                ->greeting('Hello!')
-                ->line('One of your invoices has been paid!')
-                ->action('View Invoice', $url)
-                ->line('Thank you for using our application!');
-}
 
     /**
      * Store a newly created resource in storage.
@@ -106,9 +97,10 @@ class Aplicada_ofertasController extends Controller
                             $message['names'] = $aspirante->nombres;
                             $message['lastNames'] = $aspirante->apellidos;
                             $message['email'] = $email;
-                            $message['content']= 'Estoy intentando aplicar y conocer mas sobre la vacante';
+                            $message['content']= 'Estoy intentando aplicar y conocer mas sobre la vacante ';
+                            $message['bye'] = 'Espero su pronta respuesta de antemano gracias';
                           
-                            Mail::to('cv19001@itcha.edu.sv')->send(new MessageReceived($message));
+                            Mail::to('SistemaInformaticoSIIL@gmail.com')->send(new MessageReceived($message));
                             return response()->json([
                              'res' => true,
                              'msg' => "Se Aplico correctamente",
@@ -177,7 +169,9 @@ class Aplicada_ofertasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $aplicadosUpd =Aplicadas_ofertas::findOrfail($id);
+        $aplicadosUpd->estado = 'D';        
+        $aplicadosUpd->save();
     }
 
     /**

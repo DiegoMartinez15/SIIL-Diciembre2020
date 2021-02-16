@@ -18,6 +18,7 @@
                   <div class="panel-body">
                     <h3><strong>Asunto:</strong></h3>
                     <p>{{ $msg['content'] }}</p>
+                    <p>{{ $msg['bye'] }}</p>
                   </div>
                   <div class="panel-footer">
                       
