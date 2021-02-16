@@ -54,7 +54,8 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::post('/uploadImages', 'OfertasController@uploadImages');
 
     Route::ApiResource("ApplyOffer","Aplicada_ofertasController");
-    
+    Route::get('/formularioSeguimiento', 'FormularioSeguimientController@index');
+    Route::post('/seguimientoSave', 'FormularioSeguimientController@create');
 });
 /* FIN de Group */
 //***************************************************************************/

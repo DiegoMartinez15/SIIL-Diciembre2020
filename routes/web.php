@@ -18,6 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/aspirantes_list', 'FormularioSeguimientController@index');
 Route::post("/perfil","FormularioPerfilController@store"); 
 Route::post("perfil/save","FormularioPerfilController@create");  
 

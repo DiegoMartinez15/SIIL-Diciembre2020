@@ -467,12 +467,13 @@
             :rules="campo"
             label="Lugar de nacimiento"
             required
+            counter
+            maxlength="250"
           ></v-text-field>
         </v-col>
         <!--Direccion-->
       <v-col cols="12" md="6">
           <v-text-field
-
             :label="arrayAlumno.direccion"
             disabled
           ></v-text-field>
@@ -508,12 +509,13 @@
               </template>
               <span>El número que puedes ver a la izquierda es tu número de
                  telefono que tenemos para contactarte, si has cambiado de número telefonico.
-                  Por favor ingresa tu nuevo número en el recuadro de <strong>Nuevo número</strong> (si no has cambiado debes dejarlo en blanco). Gracias!!!</span>
+                  Por favor ingresa tu nuevo número en el recuadro de <strong>Nuevo número</strong> (si no has cambiado debes dejarlo en blanco)</span>
             </v-tooltip>
         </v-col>
         <v-col cols="12" md="2">
           <v-text-field
-           
+            counter
+            maxlength="8"
             v-model="formulario.celular2"
             :rules="phoneRules"
             label="Nuevo número"
@@ -529,7 +531,8 @@
         <!--NIT-->
         <v-col cols="12" md="2">
           <v-text-field
-          
+            counter
+            maxlength="14"
             v-model="formulario.nit"
             :rules="campo"
             label="Nit"
@@ -539,7 +542,8 @@
           <!--Pasaporte-->
         <v-col cols="12" md="2" style=" display:flex;">
           <v-text-field
-          
+             counter
+            maxlength="9"
             v-model="formulario.pasaporte"
             label="Pasaporte"
           ></v-text-field>
@@ -560,7 +564,8 @@
         </v-col>
          <v-col cols="12" md="3" style=" display:flex;">
           <v-text-field
-           
+           counter
+            maxlength="14"
             v-model="formulario.licencia_conducir"
             label="Licencia de conducir"
           ></v-text-field>
@@ -582,7 +587,8 @@
          <!--NUP-->
         <v-col cols="12" md="2" style=" display:flex;">
           <v-text-field
-          
+            counter
+            maxlength="12"
             v-model="formulario.nup"
             label="Nup"
           ></v-text-field>
@@ -608,7 +614,8 @@
          <!--Nacionalidadd-->
         <v-col cols="12" md="4">
           <v-text-field
-           
+            counter
+            maxlength="12"
             v-model="formulario.nacionalidad"
             :rules="campo"
             label="Nacionalidad"
@@ -661,6 +668,8 @@
          <!--si?Enfermemdad Cronica-->
         <v-col cols="12" md="6">
           <v-text-field
+            counter
+            maxlength="250"
            :disabled="formulario.enfermadad_mencion==='No'"
             v-model="formulario.enfermedad_cronica"
             label="Si? Mencionar"
@@ -680,6 +689,8 @@
          <!--Si?Medicamentos-->
         <v-col cols="12" md="6">
           <v-text-field
+          counter
+          maxlength="250"
           :disabled="formulario.medicamento_perma==='No'"
             v-model="formulario.medicamento_mencion"
             label="Si? Mencionar"
@@ -753,7 +764,8 @@
         <!--Cursos-->
         <v-col cols="12" md="12" class="d-flex">
         <v-textarea
-        
+          counter
+          maxlength="250"
           v-model="formulario.cursos_informacion"
           name="txaCurso"
           label="Cursos de formacion"
@@ -779,10 +791,11 @@
           <!--Oficios-->
           <v-col cols="12" md="12" class="d-flex">
           <v-textarea
-          
+            counter
+            maxlength="250"
             v-model="formulario.oficios_realizar"
             name="txaOficio"
-            label="Oficios que puede pealizar"
+            label="Oficios que puede realizar"
             value=""
             hint="Escriba sus oficios"
           ></v-textarea>
@@ -855,7 +868,9 @@
           <!--periodo empleo-->
           <v-col cols="12" md="4" class="d-flex">
             <v-text-field
-              :disabled="formulario.experecia_laboral==='No' || arrayAspirante.formulario_perfil==='Si'"
+              counter
+              maxlength="100"
+              :disabled="formulario.experecia_laboral==='No'"
               v-model="formulario.ultimo_periodo_trabajo"
               label="Periodo de último empleo"
             ></v-text-field>
@@ -877,6 +892,8 @@
           <!--cargo-->
           <v-col cols="12" md="4">
             <v-text-field
+            counter
+            maxlength="200"
             :disabled="formulario.experecia_laboral==='No'"
               v-model="formulario.cargo_desempenado"
               label="Cargo desempeñado"
@@ -885,7 +902,8 @@
            <!--habilidades-->
           <v-col cols="12" md="12">
           <v-textarea
-           
+            counter
+            maxlength="250"
             v-model="formulario.habilidades_personales"
             name="txaHabilidades"
             label="Habilidades, caracteristicas o actividades personales en que se destaca o hace bien"
@@ -896,7 +914,8 @@
            <!--dificultades-->
           <v-col cols="12" md="12">
           <v-textarea
-           
+            counter
+            maxlength="250"
             v-model="formulario.dificultades_personales"
             name="txaDificultades"
             label="Dificultades, caracteristicas o actividades personal que debe mejorar o aprender"
@@ -925,8 +944,9 @@
           </v-col>
           <!--otras observaciones-->
           <v-col cols="12" md="12">
-          <v-textarea
-          
+          <v-textarea 
+            counter
+            maxlength="250"
             v-model="formulario.otra_observacion"
             name="txaOtras"
             label="Otras observaciones"
@@ -1020,6 +1040,7 @@
      
       phoneRules: [
         v => /^([0-9])*$/.test(v) || 'Formato no valido',
+        v => v.trim().split(' ').length <= 8 || 'Maximo 8 digitos'
       ],
      
        campo: [
@@ -1086,7 +1107,7 @@
       let me = this;
       me.errorsNombre = [];
       me.$refs.formPerfil.resetValidation();
-    },
+    }, 
       fetchAspirantes() {    
         let token = localStorage.getItem('token');
         let me = this,

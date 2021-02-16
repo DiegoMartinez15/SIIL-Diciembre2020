@@ -9,13 +9,14 @@ class FormularioSeguimiento extends Model
     protected $table = "formularios_seguimientos";
     protected $fillable=['id_aspirante',
     'id_egresado',
-    
     'continua_estudiando',
     'empleado',
+    'interes_colocado',
     'empleado_area_trabajo',
     'tipo_empleo',
+    'nombre_empresa',
     'contacto_empresa',
-    'cargo_desempena',
+    'cargo_desempenia',
     'tel_empresa',
     'estatus',
     'fecha_monitoreo'
