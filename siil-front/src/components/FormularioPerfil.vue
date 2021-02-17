@@ -81,6 +81,8 @@
                   </v-col>
                   <v-col cols="12" md="2">
                     <v-text-field
+                     counter
+                     maxlength="8"
                      value="formulario.celular2"
                       v-model="formulario.celular2"
                       :rules="phoneRules"
@@ -91,6 +93,8 @@
                     <!--Pasaporte-->
                   <v-col cols="12" md="2" style=" display:flex;">
                     <v-text-field
+                     counter
+                      maxlength="9"
                       value="formulario.pasaporte"
                       v-model="formulario.pasaporte"
                       label="Pasaporte"
@@ -112,6 +116,8 @@
                   </v-col>
                    <v-col cols="12" md="3" style=" display:flex;">
                     <v-text-field
+                     counter
+                     maxlength="14"
                      value="formulario.licencia_conducir"
                       v-model="formulario.licencia_conducir"
                       label="Licencia de conducir"
@@ -134,6 +140,8 @@
                    <!--NUP-->
                   <v-col cols="12" md="3" style=" display:flex;">
                     <v-text-field
+                     counter
+                     maxlength="12"
                       value="formulario.nup"
                       v-model="formulario.nup"
                       label="Nup"
@@ -188,6 +196,8 @@
                    <!--si?Enfermemdad Cronica-->
                   <v-col cols="12" md="6">
                     <v-text-field
+                     counter
+                    maxlength="250"
                     value="formulario.enfermedad_cronica"
                      :disabled="formulario.enfermadad_mencion==='No'"
                       v-model="formulario.enfermedad_cronica"
@@ -208,6 +218,8 @@
                    <!--Si?Medicamentos-->
                   <v-col cols="12" md="6">
                     <v-text-field
+                     counter
+                    maxlength="250"
                     value="formulario.medicamento_mencion"
                     :disabled="formulario.medicamento_perma==='No'"
                       v-model="formulario.medicamento_mencion"
@@ -236,6 +248,8 @@
                   <!--Cursos-->
                   <v-col cols="12" md="12" class="d-flex">
                   <v-textarea
+                   counter
+                    maxlength="250"
                     value="formulario.cursos_informacion"
                     v-model="formulario.cursos_informacion"
                     name="txaCurso"
@@ -262,6 +276,8 @@
                     <!--Oficios-->
                     <v-col cols="12" md="12" class="d-flex">
                     <v-textarea
+                     counter
+                    maxlength="250"
                       value="formulario.oficios_realizar"
                       v-model="formulario.oficios_realizar"
                       name="txaOficio"
@@ -313,6 +329,8 @@
                     <!--periodo empleo-->
                     <v-col cols="12" md="4" class="d-flex">
                       <v-text-field
+                       counter
+                      maxlength="100"
                       value="formulario.ultimo_periodo_trabajo"
                         :disabled="formulario.experecia_laboral==='No'"
                         v-model="formulario.ultimo_periodo_trabajo"
@@ -336,6 +354,8 @@
                     <!--cargo-->
                     <v-col cols="12" md="4">
                       <v-text-field
+                       counter
+                      maxlength="200"
                       value="formulario.cargo_desempenado"
                       :disabled="formulario.experecia_laboral==='No'"
                         v-model="formulario.cargo_desempenado"
@@ -345,6 +365,8 @@
                      <!--habilidades-->
                     <v-col cols="12" md="12">
                     <v-textarea
+                     counter
+                     maxlength="250"
                      value="formulario.habilidades_personales"
                       v-model="formulario.habilidades_personales"
                       name="txaHabilidades"
@@ -356,6 +378,8 @@
                      <!--dificultades-->
                     <v-col cols="12" md="12">
                     <v-textarea
+                     counter
+                      maxlength="250"
                       value="formulario.dificultades_personales"
                       v-model="formulario.dificultades_personales"
                       name="txaDificultades"
@@ -378,6 +402,8 @@
                     <!--otras observaciones-->
                     <v-col cols="12" md="12">
                     <v-textarea
+                     counter
+                      maxlength="250"
                     value="formulario.otra_observacion"
                       v-model="formulario.otra_observacion"
                       name="txaOtras"
@@ -401,7 +427,7 @@
                       color="success"
                       :disabled="!valid"
                       @click="updateForm()"
-                    >Enviar mi informacion </v-btn>
+                    >Enviar mi información </v-btn>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
@@ -428,7 +454,7 @@
         </v-data-table>
       </v-card>
     </div>
-
+<!--FORMULARIO DE INGRESO DE DATOS-->
   <v-form v-model="valid" ref="formPerfil" :lazy-validation="true"  v-show="arrayAspirante.formulario_perfil==='No'">
     
     <v-container>
@@ -531,10 +557,11 @@
         <!--NIT-->
         <v-col cols="12" md="2">
           <v-text-field
+            
             counter
             maxlength="14"
             v-model="formulario.nit"
-            :rules="campo"
+            :rules="nit"
             label="Nit"
             required
           ></v-text-field>
@@ -564,6 +591,7 @@
         </v-col>
          <v-col cols="12" md="3" style=" display:flex;">
           <v-text-field
+          :rules="phoneRules"
            counter
             maxlength="14"
             v-model="formulario.licencia_conducir"
@@ -614,8 +642,6 @@
          <!--Nacionalidadd-->
         <v-col cols="12" md="4">
           <v-text-field
-            counter
-            maxlength="12"
             v-model="formulario.nacionalidad"
             :rules="campo"
             label="Nacionalidad"
@@ -959,7 +985,7 @@
     </v-container>
     <v-divider class="black"></v-divider>
     <template>
-    <v-btn block color="#814690" dark  
+    <v-btn block color="success" dark  
        v-show="arrayAspirante.formulario_perfil==='No'"
       elevation="8"
       @click="saveForm()"
@@ -1038,9 +1064,12 @@
       estados:['Soltero','Casado','Viudo'],
       nivel:['Técnico','Licenciado','Ingeniero'],
      
+      nit: [
+        v => !!v || 'Este campo es requerido',
+        v => /^([0-9])*$/.test(v) || 'Formato no valido',
+      ],
       phoneRules: [
         v => /^([0-9])*$/.test(v) || 'Formato no valido',
-        v => v.trim().split(' ').length <= 8 || 'Maximo 8 digitos'
       ],
      
        campo: [
@@ -1253,7 +1282,7 @@
          
           if (me.$refs.formPerfil.validate()) {
              const Toast = me.$swal.mixin({
-              timer: 10000,
+              timer: 20000,
                timerProgressBar: true,   
           
             });
@@ -1279,20 +1308,50 @@
               console.log(me.formulario)
               
               me.$http.post(`${me.$url}/perfil`, me.formulario, header)
-                .then(function(response) {
+                .then(function(response) { 
+                   me.loader = true;
                   console.log(response.data);
                   console.log(response.data.msg);
-                  if(response.data.msg == undefined){
-                    me.loader = true;
-                  Toast.fire(
-                  'Ocurrio un error !',
-                  'Tu información ',
-                  'error'
-                  );
+                   let msg = response.data.msg;
+                switch (msg) {
+                    case "nit existe":
+                       me.$swal({
+                        title: "Alerta!",
+                        text: "¡No se puede guardar tu NIT por que  ya esta registrado por otro usuario, Revisa si esta escrito correctamente! :(",
+                        icon: "warning"
+                      });
+                      break;
+                   case "nup exite":
+                       me.$swal({
+                        title: "Alerta!",
+                        text: "¡No se puede guardar tu NUP por que ya esta registrado por otro usuario, Revisa si esta escrito correctamente! :(",
+                        icon: "warning"
+                      });
+                      break;
+                    case "pasaporte existe":
+                       me.$swal({
+                        title: "Alerta!",
+                        text: "¡No se puede guardar tu PASAPORTE por que ya esta registrado por otro usuario, Revisa si esta escrito correctamente! :(",
+                        icon: "warning"
+                      });
+                      break;
+                      case "licencia existe":
+                       me.$swal({
+                        title: "Alerta!",
+                        text: "¡No se puede guardar tu LICENCIA DE CONDUCIR por que ya esta registrado por otro usuario, Revisa si esta escrito correctamente! :(",
+                        icon: "warning"
+                      });
+                      break;
+                    case "undefined":
+                       me.$swal({
+                        title: "Completado Exitosamente!",
+                        text: "Tu información se envio Correctamente! :)",
+                        icon: "success"
+                      });
+                      break;
+                  }       
                   me.loader = false;
-                  
-                  }
-               
+                   me.fetchData();
               })
               .catch(function(error) {
                 console.log(error);
@@ -1316,7 +1375,7 @@
          
           if (me.$refs.formPerfil.validate()) {
              const Toast = me.$swal.mixin({
-              timer: 10000,
+              timer: 20000,
                timerProgressBar: true,   
           
             });
@@ -1346,7 +1405,7 @@
                   'success'
                   );
                   me.loader = false;
-                  me.$router.push('/ofertas')
+                  me.fetchData();
                   }
                
               })

@@ -107,26 +107,26 @@ class FormularioPerfilController extends Controller
                         }else{
                             return response()->json([
                                 'res' => false,
-                                'msg' =>"si viene licencia",
+                                'msg' =>"licencia existe", 
                             ],200);
                         }
                     }else{
                         return response()->json([
                             'res' => false,
-                            'msg' =>"si viene pas",
+                            'msg' =>"pasaporte existe",
                         ],200);
                     }
                }else{
                     return response()->json([
                         'res' => false,
-                        'msg' =>"si viene nup ",
+                        'msg' =>"nup exite",
                     ],200);
                }
                 
             }else{
                 return response()->json([
                 'res' => false,
-                'msg' =>"si viene nit ",
+                'msg' =>"nit existe",
             ],200);
                 
             }
