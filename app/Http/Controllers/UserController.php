@@ -1,7 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
+
+use App\FormAccept;
 use App\User;
+use App\Egresados;
 use App\Aspirante;
 use App\Usuario;
 use Illuminate\Http\Request;
@@ -154,6 +158,15 @@ class UserController extends Controller
             'user'=> $user
         ],200);
     }
+
+    public function listAccept()
+    {
+        $usuario = Egresados::join('aspirantes','egresados.idaspirante','=','aspirantes.id')->select('aspirantes.nombres as nombres','aspirantes.apellidos as apellidos','aspirantes.id as id_aspirante')->where("egresado","=","Si")->where("aspirantes.idusers","=",null)->get();
+        return $usuario;
+
+    }
+
+   
 
 }
 

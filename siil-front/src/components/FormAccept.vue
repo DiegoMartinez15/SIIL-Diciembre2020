@@ -190,7 +190,7 @@ export default {
                       timer: 2500
                     });
                 console.log(response.data);
-                    me.$router.push('/');
+                    me.$router.push('/perfilOcupacional');
             })
             .catch(function(error){
               console.log(error);
@@ -205,7 +205,7 @@ export default {
               .then(function(response){
                   console.log(response.data);
                     me.dialog = false; 
-                    me.$router.push('/');
+                    me.$router.push('/perfilOcupacional');
               })
               .catch(function(error){
                 console.log(error);

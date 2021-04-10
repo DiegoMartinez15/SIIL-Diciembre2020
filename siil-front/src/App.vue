@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="app">
  <router-view/>
   </v-app>
 </template>
@@ -12,11 +12,6 @@ export default {
       source: String,
     },
   name: 'App',
-
-
-  components: {
-  },
-
-
+  components: {}
 };
 </script>

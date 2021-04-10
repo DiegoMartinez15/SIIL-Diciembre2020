@@ -13,7 +13,11 @@ import FormAccept from '../components/FormAccept.vue'
 import FormPerfil from '../components/FormularioPerfil.vue'
 import FormSeguimiento from '../components/FormularioSeguimiento.vue'
 import listaAplicados from '../components/listaAplicados.vue'
-
+import UpdateAnio from '../components/AnioGraduacion.vue'
+import StateS from '../components/ControlSeguimiento.vue'
+import StateF from '../components/ControlPerfil.vue'
+import ForcedPerfil from '../components/PerfilOcupacional.vue'
+import Aceptacion from '../components/Aceptacion.vue'
 Vue.use(VueRouter)
 
 
@@ -21,6 +25,7 @@ const routes = [{
         path: '/',
         name: 'Home',
         component: Home,
+        meta: { requiresAuth: true },
         children: [{
                 path: '/usuarios',
                 name: 'usuarios',
@@ -31,6 +36,12 @@ const routes = [{
                 path: '/empresas',
                 name: 'empresas',
                 component: Empresas,
+                meta: { requiresAuth: true }
+            },
+             {
+                path: '/aceptacion',
+                name: 'aceptacionA',
+                component: Aceptacion,
                 meta: { requiresAuth: true }
             },
             {
@@ -61,11 +72,30 @@ const routes = [{
                 path: '/formulario_seguimiento',
                 name: 'formulario-seguimiento',
                 component: FormSeguimiento,
+                meta: { requiresAuth: true }
             },
             {
                 path: '/aplicados',
                 name: 'listaAplicados',
                 component: listaAplicados,
+                meta: { requiresAuth: true }
+            },
+            {
+                path: '/anio',
+                name: 'anioGraduacion',
+                component: UpdateAnio,
+                meta: { requiresAuth: true }
+            },
+            {
+                path: '/control_seguimiento',
+                name: 'controlS',
+                component: StateS,
+                meta: { requiresAuth: true }
+            },
+            {
+                path: '/control_perfil',
+                name: 'controlF',
+                component: StateF,
                 meta: { requiresAuth: true }
             },
 
@@ -75,6 +105,11 @@ const routes = [{
         path: '/login',
         name: 'login',
         component: Login
+    },
+     {
+        path: '/perfilOcupacional',
+        name: 'perfil',
+        component: ForcedPerfil
     },
     {
         path: '/MainPage',
@@ -117,7 +152,7 @@ router.beforeEach((to, from, next) => {
             }
             
         }else{
-             next('/login')
+             next('/MainPage')
 
         }
 

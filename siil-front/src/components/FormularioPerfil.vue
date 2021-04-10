@@ -1,8 +1,14 @@
 <template>
    <div class="content"  >
-    <h4  v-show="arrayAspirante.formulario_perfil==='Si'" style="text-align:center; font-size:20px;">Ya has completado este formulario,
-       pero puedes seguir actualizar tu informacion. Y de que servira actualizar tu informacion? 
-       Pues si cada vez vas aumentando tus conocimientos podras ser recomendado y aceptado con mucha mas facilidad por tus competencias adquiridas</h4>  
+     <v-alert
+      v-show="arrayAspirante.formulario_perfil==='Si'"
+      border="top"
+      colored-border 
+      type="info"
+      elevation="2"
+    >
+     Ya has completado este formulario,pero puedes seguir actualizar tu informacion. Y de que servira actualizar tu informacion? Pues si cada vez vas aumentando tus conocimientos podras ser recomendado y aceptado con mucha mas facilidad por tus competencias adquiridas
+    </v-alert>
        <v-divider class="black"></v-divider>
     <div class="md-layout-item md-medium-size-100 md-xsmall-sixe-100 md-size-100">
       <v-overlay :value="loader" :z-index="'99999999'">
@@ -59,7 +65,8 @@
                   <!--Numero de telefono-->
                 <v-col cols="12" md="3" style=" display:flex;">
                     <v-text-field
-                     :label="arrayAlumno.celular"
+                    Label="Número de telefono"
+                     v-model="arrayAspirante.celular"
                      disabled
                     ></v-text-field>
                      <v-tooltip bottom >
@@ -76,7 +83,7 @@
                         </template>
                         <span>El número que puedes ver a la izquierda es tu número de
                            telefono que tenemos para contactarte, si has cambiado de número telefonico.
-                            Por favor ingresa tu nuevo número en el recuadro de <strong>Nuevo número</strong> (si no has cambiado debes dejarlo en blanco). Gracias!!!</span>
+                            Por favor ingresa tu nuevo número en el recuadro de <strong>Nuevo número</strong> (si no has cambiado debes dejarlo en blanco)</span>
                       </v-tooltip>
                   </v-col>
                   <v-col cols="12" md="2">
@@ -121,6 +128,7 @@
                      value="formulario.licencia_conducir"
                       v-model="formulario.licencia_conducir"
                       label="Licencia de conducir"
+                      :rules="phoneRules"
                     ></v-text-field>
                      <v-tooltip bottom >
                         <template v-slot:activator="{ on, attrs }" >
@@ -185,8 +193,8 @@
                 <!--Enfermemdad Cronica-->
                   <v-col cols="12" md="6">
                     <v-select
-                       value="formulario.enfermadad_mencion"
-                      v-model="formulario.enfermadad_mencion"
+                       value="formulario.enfermedad_mencion"
+                      v-model="formulario.enfermedad_mencion"
                       :items="yesno"
                       label="Padece alguna Enfermedad Cronica?"
                        required
@@ -199,7 +207,7 @@
                      counter
                     maxlength="250"
                     value="formulario.enfermedad_cronica"
-                     :disabled="formulario.enfermadad_mencion==='No'"
+                     :disabled="formulario.enfermedad_mencion==='No'"
                       v-model="formulario.enfermedad_cronica"
                       label="Si? Mencionar"
                     ></v-text-field>
@@ -467,21 +475,24 @@
          <!--nombre-->
         <v-col cols="12" md="3">
           <v-text-field
-            :label="arrayAspirante.nombres"
+          label="Nombres"
+            v-model="arrayAspirante.nombres"
             disabled
           ></v-text-field>
         </v-col>
         <!--Apellido-->
         <v-col cols="12" md="3">
           <v-text-field
-            :label="arrayAspirante.apellidos"
+          label="Apellidos"
+            v-model="arrayAspirante.apellidos"
             disabled
           ></v-text-field>
         </v-col>
         <!--datepicker de nacimiento-->
         <v-col cols="12" md="2">
           <v-text-field
-            :label="arrayAlumno.fecha_nac"
+          label="Fecha de nacimiento"
+            v-model="arrayAspirante.fecha_nac"
             disabled
           ></v-text-field>
         </v-col>
@@ -500,7 +511,8 @@
         <!--Direccion-->
       <v-col cols="12" md="6">
           <v-text-field
-            :label="arrayAlumno.direccion"
+          label="Dirección"
+            v-model="arrayAspirante.direccion"
             disabled
           ></v-text-field>
         </v-col>
@@ -518,7 +530,8 @@
         <!--Numero de telefono-->
       <v-col cols="12" md="2" style=" display:flex;">
           <v-text-field
-           :label="arrayAlumno.celular"
+          label="Número de teléfono"
+           v-model="arrayAspirante.celular"
            disabled
           ></v-text-field>
            <v-tooltip bottom >
@@ -550,7 +563,8 @@
         <!--DUI-->
         <v-col cols="12" md="3">
           <v-text-field
-            :label="arrayAlumno.dui"
+          label="DUI"
+            v-model="arrayAspirante.dui"
             disabled
           ></v-text-field>
         </v-col>
@@ -562,7 +576,7 @@
             maxlength="14"
             v-model="formulario.nit"
             :rules="nit"
-            label="Nit"
+            label="NIT"
             required
           ></v-text-field>
         </v-col>
@@ -676,7 +690,7 @@
         </v-col>
       </v-row>
       <v-divider class="black"></v-divider>
-      <thead style="font-size:25px" color="##20202f">II.Estado De Salud</thead>
+      <thead style="font-size:25px" color="#20202f">II.Estado De Salud</thead>
       <v-divider class="black"></v-divider>
       <!--v-row parte 2-->
       <v-row>
@@ -684,7 +698,7 @@
         <v-col cols="12" md="6">
           <v-select
           
-            v-model="formulario.enfermadad_mencion"
+            v-model="formulario.enfermedad_mencion"
             :items="yesno"
             label="Padece alguna Enfermedad Cronica?"
              required
@@ -696,7 +710,7 @@
           <v-text-field
             counter
             maxlength="250"
-           :disabled="formulario.enfermadad_mencion==='No'"
+           :disabled="formulario.enfermedad_mencion==='No'"
             v-model="formulario.enfermedad_cronica"
             label="Si? Mencionar"
           ></v-text-field>
@@ -963,7 +977,7 @@
           <v-col class="d-flex" cols="12" md="6">
             <!--Traslado-->
           <v-select
-           
+           v-model="formulario.traslado_fuera"
             :items="yesno"
             label="Disponibilidad para trasladarse fuera de Chalatenango"
           ></v-select>
@@ -981,7 +995,14 @@
           ></v-textarea>
           </v-col>
         </v-row>
-        <h3 class="pie_info" >Antes de enviar tu información revisa que todo este correcto </h3>
+        <v-alert
+        class="pie_info"
+          dense
+          type="error"
+          >
+         Antes de enviar tu <strong>información</strong> revisa que todo este correcto
+        </v-alert>
+        
     </v-container>
     <v-divider class="black"></v-divider>
     <template>
@@ -1007,7 +1028,6 @@
       errorsNombre: [],
       modalForm:false,
       arrayAspirante:[],
-      arrayAlumno:[],
       arrayIdioma:[], 
       arrayAnios:[],
       arrayCarrera:[],
@@ -1034,7 +1054,7 @@
         nivel_idioma:"",
         nacionalidad:"",
         enfermedad_cronica:"",
-        enfermadad_mencion:"",
+        enfermedad_mencion:"",
         medicamento_perma:"",
         medicamento_mencion:"",
         discapacidad:"",
@@ -1055,6 +1075,7 @@
         disponibilidad_horaria:"",
         recomendacion_derivacion:"",
         otra_observacion:"",
+        traslado_fuera:"",
         created_at:"",
       },
 
@@ -1104,7 +1125,7 @@
         nivel_idioma:"",
         nacionalidad:"",
         enfermedad_cronica:"",
-        enfermadad_mencion:"",
+        enfermedad_mencion:"",
         medicamento_perma:"",
         medicamento_mencion:"",
         discapacidad:"",
@@ -1176,7 +1197,7 @@
               },
             }; 
           me.loader = true;
-        me.formulario.id_aspirante = me.$store.state.idaspirante;
+          me.formulario.id_aspirante = me.$store.state.idaspirante;
         me.$http.get(`${me.$url}/formulario/list/` +  me.formulario.id_aspirante,header)
         .then(function(response){
           console.log(response.data)
@@ -1187,30 +1208,10 @@
           console.log(error);
         });
       },
-       fetchEgresado() {  
-        let token = localStorage.getItem('token');
-        let me = this,
-         header = {
-              headers: {
-                "Authorization": "Bearer "+ token,
-                
-              },
-            };          
-        me.formulario.id_aspirante = me.$store.state.idaspirante;
-        me.$http.get(`${me.$url}/egresado/` + me.formulario.id_aspirante,header)
-        .then(function(response){
-            console.log(response.data)
-          me.arrayAlumno = response.data;
-        })
-        .catch(function(error){
-          console.log(error);
-        });
-      },
       fetchData(){
           let me = this;
            
           me.fetchAspirantes();
-          me.fetchEgresado();
           me.fetchIdiomas();
           me.fetchAnio();
           me.fetcCarrera();
@@ -1289,7 +1290,6 @@
                Toast.fire({
               width:'200%',
               padding:'2rem',
-              iconColor:'#814690',
               backdrop:true,
               title: 'A dónde vas tan rápido Amigo/a?',
               text: "Revisa muy bien tu información antes de ser enviada!",
@@ -1301,9 +1301,7 @@
               cancelButtonText: 'Cancelar, revisare mi información'
             }).then((result) => {
               if (result.isConfirmed) {
-               me.formulario.id_aspirante = me.arrayAspirante.id;
-               me.formulario.id_egresado = me.arrayAlumno.id;
-              console.log(me.formulario.id_aspirante)
+               me.formulario.id_egresado = me.arrayAspirante.id_egresado;
               console.log(me.formulario.id_egresado)
               console.log(me.formulario)
               
@@ -1342,16 +1340,18 @@
                         icon: "warning"
                       });
                       break;
-                    case "undefined":
+                    case undefined:
+                       me.loader = false;
                        me.$swal({
                         title: "Completado Exitosamente!",
                         text: "Tu información se envio Correctamente! :)",
                         icon: "success"
                       });
+                       me.fetchData();
                       break;
                   }       
-                  me.loader = false;
-                   me.fetchData();
+                  
+                   
               })
               .catch(function(error) {
                 console.log(error);
@@ -1382,7 +1382,6 @@
                Toast.fire({
               width:'200%',
               padding:'2rem',
-              iconColor:'#814690',
               backdrop:true,
               title: 'A dónde vas tan rápido Amigo/a?',
               text: "Revisa muy bien tu información antes de ser enviada!",
@@ -1438,7 +1437,6 @@
 </script>
 <style>
 .pie_info{
-  color: red;
  text-align:center;
  font-size: 20px;
 }

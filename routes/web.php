@@ -20,7 +20,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/aspirantes_list', 'FormularioSeguimientController@index');
 Route::post("/perfil","FormularioPerfilController@store"); 
-Route::post("perfil/save","FormularioPerfilController@create");  
+Route::post("perfil/save","FormularioPerfilController@create");
+Route::post('/showform2', 'ControlSeguimientoController@showSecondForm');
+Route::get('/controlList', 'ControlSeguimientoController@index');  
 
 Route::get('enviar',function(){
     $data = [

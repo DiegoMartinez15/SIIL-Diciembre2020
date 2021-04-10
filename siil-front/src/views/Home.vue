@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire"  >
+  <v-app id="app"  >
     <!--:src="'/img/login.jpg'"   Esta es la imagen del sidebar   -->
     <v-navigation-drawer
       v-model="drawer"
@@ -127,12 +127,12 @@
               </v-list-item-content>
             </v-list-item> 
 
-            <v-list-item link :to="{path:'/#'}">
+            <v-list-item link :to="{path:'/aceptacion'}">
               <v-list-item-action>
-                <v-icon>file_copy</v-icon>
+                <v-icon>done_all</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>Reportes</v-list-item-title>
+                <v-list-item-title>Aceptación</v-list-item-title>
               </v-list-item-content>
             </v-list-item> 
             <v-list-item link :to="{path:'/aplicados'}">
@@ -142,6 +142,46 @@
               </v-list-item-action>
               <v-list-item-content>
                 <v-list-item-title>aplicados</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item link :to="{path:'/formulario_seguimiento'}">
+              <v-list-item-action>
+                <v-icon>
+                folder_shared
+              </v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Seguimiento a Graduados</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item> 
+            <v-list-item link :to="{path:'/anio'}">
+              <v-list-item-action>
+                <v-icon>
+                date_range
+              </v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Año de Graduacion</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item> 
+            <v-list-item link :to="{path:'/control_seguimiento'}">
+              <v-list-item-action>
+                <v-icon>
+                supervised_user_circle
+              </v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Control de Seguimiento a Graduados</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item> 
+            <v-list-item link :to="{path:'/control_perfil'}">
+              <v-list-item-action>
+                <v-icon>
+                transfer_within_a_station
+              </v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>Control Perfil Ocupacional</v-list-item-title>
               </v-list-item-content>
             </v-list-item> 
             

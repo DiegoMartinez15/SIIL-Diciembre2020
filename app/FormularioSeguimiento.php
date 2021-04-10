@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class FormularioSeguimiento extends Model
 {
     protected $table = "formularios_seguimientos";
-    protected $fillable=['id_aspirante',
+    protected $fillable=[
     'id_egresado',
     'continua_estudiando',
     'empleado',
@@ -19,6 +19,7 @@ class FormularioSeguimiento extends Model
     'cargo_desempenia',
     'tel_empresa',
     'estatus',
+    'trimestre',
     'fecha_monitoreo'
 ];
 }

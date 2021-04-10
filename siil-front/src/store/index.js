@@ -15,6 +15,7 @@ export default new Vuex.Store({
         idaspirante: '',
         usuarioLog:[],
         F:'',
+        
 
     },
     getters: {
@@ -53,6 +54,7 @@ export default new Vuex.Store({
                 return
             }
         },
+        
 
     },
     actions: {},

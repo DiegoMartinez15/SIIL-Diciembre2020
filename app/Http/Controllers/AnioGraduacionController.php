@@ -37,7 +37,7 @@ class AnioGraduacionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // 
     }
 
     /**
@@ -69,9 +69,11 @@ class AnioGraduacionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
-        //
+        $area =AnioGraduacion::findOrfail($request->id);
+        $area->anio = $request->anio;        
+        $area->save();
     }
 
     /**

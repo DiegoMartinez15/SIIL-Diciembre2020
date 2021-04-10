@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class FormularioPerfiles extends Model
 {
     protected $table = "formularios_perfiles";
-    protected $fillable=['id_aspirante',
+    protected $fillable=[
     'id_egresado',
     'id_carrera',
     'lugar_nac',
@@ -21,7 +21,7 @@ class FormularioPerfiles extends Model
     'nivel_idioma',
     'nacionalidad',
     'enfermedad_cronica',
-    'enfermadad_mencion',
+    'enfermedad_mencion',
     'medicamento_perma',
     'medicamento_mencion',
     'discapacidad',
@@ -41,6 +41,7 @@ class FormularioPerfiles extends Model
     'dificultades_personales',
     'disponibilidad_horaria',
     'recomendacion_derivacion',
+    'traslado_fuera',
     'otra_observacion',
 ];
 

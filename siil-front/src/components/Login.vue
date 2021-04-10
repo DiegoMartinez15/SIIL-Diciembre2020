@@ -169,6 +169,16 @@
                         })                   
                         me.$router.push('/login');                     
                       break;
+                      case "F":                     
+                      me.$swal({
+                         icon: 'warning',
+                          title: 'Observación',
+                          text: 'Ya has completado el proceso de Seguimiento a Graduado',
+                          footer: 'No tienes acceso al sistema',
+                          backdrop:true
+                        })                   
+                        me.$router.push('/login');                     
+                      break;
                   }
               }
             })
